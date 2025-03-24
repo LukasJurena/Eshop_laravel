@@ -2,14 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 @font-face {
-    font-family: Nunito;
-    src: url('../../public/fonts/Nunito/Nunito-Black.ttf');
+    font-family: 'Nunito';
+    src: url('/fonts/Nunito/Nunito-Black.ttf');
 }
 @font-face {
-    font-family: NunitoLight;
-    src: url("../../public/fonts/Nunito/Nunito-Light.ttf");
+    font-family: 'NunitoLight';
+    src: url('/fonts/Nunito/Nunito-Light.ttf');
 }
 @font-face {
-    font-family: BebasNeue;
-    src: url("../../public/fonts/BebasNeue/BebasNeue-Regular.ttf");
+    font-family: 'BebasNeue';
+    src: url('/fonts/BebasNeue/BebasNeue-Regular.ttf');
 }

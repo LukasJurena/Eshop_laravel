@@ -19,9 +19,9 @@ export default {
     {
         extend: {
             fontFamily: {
-                'Nunito': ['Nunito','sans'],
-                'NunitoLight': ['NunitoLight',],
-                'BebasNeue': ['BebasNeue',], 
+                'Nunito': ['Nunito', 'sans-serif'],
+                'NunitoLight': ['NunitoLight', 'sans-serif'],
+                'BebasNeue': ['BebasNeue', 'cursive'], 
             }, 
         }, 
     }, 

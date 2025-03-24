@@ -96,9 +96,10 @@
     }
 
     // Funkce pro přidání produktu do košíku a přesměrování na košík
+    // Funkce pro přidání produktu do košíku a přesměrování na košík
     function addProductAndGoToCart(productId) {
         // Poslat AJAX požadavek pro přidání do košíku
-        fetch("{{ route('cart.add', '') }}/" + productId, {
+        fetch("{{ route('cart.add', ['productId' => '__productId__']) }}".replace('__productId__', productId), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -113,7 +114,7 @@
                 window.location.href = "{{ route('cart.index') }}";
             }
         });
-    }
+}
 </script>
 
 <!-- Potvrzovací boxy, které budou skryté a zobrazené pouze při kliknutí -->
@@ -123,7 +124,7 @@
             <p>Chcete zůstat na stránce nebo přejít do košíku?</p>
             <div class="btn-container">
                 <!-- Form to stay on page and add item to cart -->
-                <form action="{{ route('cart.add', ['product' => $product->id]) }}" method="POST" id="stay-form-{{ $product->id }}">
+                <form action="{{ route('cart.add', ['productId' => $product->id]) }}" method="POST" id="stay-form-{{ $product->id }}">
                     @csrf
                     <input type="hidden" name="stay" value="true">
                     <button type="submit" class="btn">Zůstat na stránce</button>

@@ -9,7 +9,10 @@
         
         <!-- Text vycentrovaný přes obrázek -->
         <div class="absolute inset-0 flex items-center justify-center font-Nunito" style="font-family: Nunito;">
-            <h1 class="text-white text-5xl text-center" style="font-family: BebasNeue;">Vítejte na naší stránce!</h1>
+            <h1 class="text-white text-5xl text-center font-BebasNeue" >Vítejte na naší stránce!</h1>
+            <h1 class="text-4xl font-Nunito">Test Nunito</h1>
+<h1 class="text-4xl font-NunitoLight">Test Nunito Light</h1>
+<h1 class="text-4xl font-BebasNeue">Test Bebas Neue</h1>
         </div>
     </div>
     @livewire('gallery')
