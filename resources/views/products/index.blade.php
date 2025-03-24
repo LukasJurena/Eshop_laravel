@@ -72,6 +72,7 @@
                 </p>
                 <p class="font-bold text-lg text-blue-600 mb-4 text-center">Cena: {{ $product->price }} Kč</p>
                 <a href="{{ route('products.show', $product->id) }}" class="btn-primary">Zobrazit detaily</a>
+                <button type="button" class="inline-block px-6 py-2 mt-2 text-white bg-green-500 rounded-md hover:bg-green-600 transition" onclick="showConfirmationBox('{{ route('cart.add', ['product' => $product->id]) }}', {{ $product->id }})">Přidat do košíku</button>
             </div>
         </div>
     @endforeach
@@ -79,4 +80,59 @@
 
     </div>
 </div>
+<script>
+    // Funkce pro zobrazení potvrzovacího boxu
+    function showConfirmationBox(productUrl, productId) {
+        // Zobrazíme potvrzovací box pro daný produkt
+        document.getElementById('confirmation-box-' + productId).classList.remove('hidden');
+        document.getElementById('confirmation-box-' + productId).style.display = 'flex';
+
+        // Skryjeme zbytek potvrzovacích boxů
+        document.querySelectorAll('.confirmation-box').forEach(function(box) {
+            if (box.id !== 'confirmation-box-' + productId) {
+                box.style.display = 'none';
+            }
+        });
+    }
+
+    // Funkce pro přidání produktu do košíku a přesměrování na košík
+    function addProductAndGoToCart(productId) {
+        // Poslat AJAX požadavek pro přidání do košíku
+        fetch("{{ route('cart.add', '') }}/" + productId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ product_id: productId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Přejít na košík
+                window.location.href = "{{ route('cart.index') }}";
+            }
+        });
+    }
+</script>
+
+<!-- Potvrzovací boxy, které budou skryté a zobrazené pouze při kliknutí -->
+@foreach($products as $product)
+    <div id="confirmation-box-{{ $product->id }}" class="confirmation-box">
+        <div class="confirmation-content">
+            <p>Chcete zůstat na stránce nebo přejít do košíku?</p>
+            <div class="btn-container">
+                <!-- Form to stay on page and add item to cart -->
+                <form action="{{ route('cart.add', ['product' => $product->id]) }}" method="POST" id="stay-form-{{ $product->id }}">
+                    @csrf
+                    <input type="hidden" name="stay" value="true">
+                    <button type="submit" class="btn">Zůstat na stránce</button>
+                </form>
+
+                <!-- Link to go to cart page -->
+                <a href="{{ route('cart.index') }}" class="btn" onclick="addProductAndGoToCart({{ $product->id }})">Přejít do košíku</a>
+            </div>
+        </div>
+    </div>
+@endforeach
 @endsection

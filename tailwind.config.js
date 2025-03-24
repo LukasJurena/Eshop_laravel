@@ -18,10 +18,10 @@ export default {
     theme:
     {
         extend: {
-            fontFamily: { 
-                Nunito: ['Nunito', 'sans-serif'],
-                NunitoLight: ['NunitoLight', 'sans-serif'],
-                BebasNeue: ['BebasNeue', 'serif'], 
+            fontFamily: {
+                'Nunito': ['Nunito','sans'],
+                'NunitoLight': ['NunitoLight',],
+                'BebasNeue': ['BebasNeue',], 
             }, 
         }, 
     }, 

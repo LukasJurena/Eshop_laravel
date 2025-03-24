@@ -8,8 +8,8 @@
         <!-- Přechodový gradient -->
         
         <!-- Text vycentrovaný přes obrázek -->
-        <div class="absolute inset-0 flex items-center justify-center">
-            <h1 class="text-white text-5xl font-nunito text-center">Vítejte na naší stránce!</h1>
+        <div class="absolute inset-0 flex items-center justify-center font-Nunito" style="font-family: Nunito;">
+            <h1 class="text-white text-5xl text-center" style="font-family: BebasNeue;">Vítejte na naší stránce!</h1>
         </div>
     </div>
     @livewire('gallery')
@@ -41,7 +41,8 @@
             </div>
         </div>
     </div>
-
+    <!-- Reviews Section (Now under the slider) -->
+    @include('components.reviews')
    @include('components.product-slider')
 @endsection
 

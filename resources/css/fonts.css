@@ -1,13 +1,12 @@
 @font-face {
     font-family: Nunito;
-    src: url("../../public/fonts/Nunito/Nunito-Regular.ttf") format ("ttf");
-    color: aquamarine;
+    src: url('../../public/fonts/Nunito/Nunito-Black.ttf');
 }
 @font-face {
     font-family: NunitoLight;
-    src: url("/fonts/Nunito/Nunito-Light.ttf") format ("ttf");
+    src: url("../../public/fonts/Nunito/Nunito-Light.ttf");
 }
 @font-face {
-    font-family: Bebas Neue;
-    src: url("/fonts/Bebas Neue/BebasNeue-Regular.ttf") format ("ttf");
+    font-family: BebasNeue;
+    src: url("../../public/fonts/BebasNeue/BebasNeue-Regular.ttf");
 }

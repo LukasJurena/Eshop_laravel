@@ -75,7 +75,14 @@
                     </x-slot>
                 </x-dropdown>
             </div>
-
+            <!-- Cart Button (top-right) -->
+            <a href="{{ route('cart.index') }}" class="inline-flex items-center justify-center p-2 rounded-md text-black dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                <svg class="h-6 w-6 text-black dark:text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path fill="currentColor" d="M3 2h14a1 1 0 011 1v14a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1zm7 3a2 2 0 11-4 0 2 2 0 014 0zM4 8h12v9H4V8z" />
+                </svg>
+                <span class="ml-2">{{ __('Cart') }}</span>
+            </a>
+        
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
