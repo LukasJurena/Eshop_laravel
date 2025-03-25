@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="h-20">
+</div>
     <div class="container py-10 mx-auto max-w-6xl">
-        <h1 class="text-4xl font-semibold text-center text-white mb-8">Nákupní Košík</h1>
+        <h1 class="text-4xl font-semibold text-center text-black mb-8">Nákupní Košík</h1>
 
         <!-- Back to Products Button -->
         <div class="text-center mb-4 mt-8">
-            <a href="{{ route('products.index') }}" class="inline-block px-8 py-3 text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 ease-in-out">
+            <a href="{{ route('products.index') }}" class="inline-block px-8 py-3 text-black bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 ease-in-out">
                 Zpět na produkty
             </a>
         </div>
@@ -14,7 +16,7 @@
         @if(session('cart') && count(session('cart')) > 0)
             <div class="overflow-x-auto bg-white shadow-lg rounded-lg">
                 <table class="min-w-full table-auto text-gray-800">
-                    <thead class="bg-blue-600 text-white">
+                    <thead class="bg-blue-600 text-black">
                         <tr>
                             <th class="px-6 py-3 text-left">Produkt</th>
                             <th class="px-6 py-3 text-left">Cena</th>
@@ -52,7 +54,7 @@
                 </a>
             </div>
         @else
-            <p class="text-center text-white text-xl mt-6">Váš košík je prázdný. Prohlédněte si naše produkty a přidejte něco do košíku!</p>
+            <p class="text-center text-black text-xl mt-6">Váš košík je prázdný. Prohlédněte si naše produkty a přidejte něco do košíku!</p>
         @endif
     </div>
 @endsection

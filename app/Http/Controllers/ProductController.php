@@ -15,6 +15,19 @@ class ProductController extends Controller
         $products = Product::all();
 
         // Předá produkty do view
+        
+        $query = Product::query();
+
+        // Pokud je zadán vyhledávací výraz, filtruj produkty
+        if ($request->has('search') && $request->search != '') {
+            $query->where('name', 'like', '%' . $request->search . '%')
+                  ->orWhere('description', 'like', '%' . $request->search . '%');
+        }
+
+        // Získej produkty podle filtru
+        $products = $query->get();
+
+        // Vrátit pohled se seznamem produktů
         return view('products.index', compact('products'));
     }
 

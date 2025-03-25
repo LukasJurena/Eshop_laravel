@@ -46,7 +46,11 @@ class CartController extends Controller
         // Otherwise, redirect to the cart page
         return redirect()->route('cart.index')->with('cart_message', 'Produkt byl přidán do košíku!');
     }
-
+    public function show($id)
+    {
+        $product = Product::with('reviews.user')->findOrFail($id);
+        return view('products.show', compact('product'));
+    }
     // Display the cart
     public function index()
     {
