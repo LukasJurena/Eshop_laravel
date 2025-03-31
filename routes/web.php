@@ -21,6 +21,8 @@ Route::post('/cart/add/{productId}', [CartController::class, 'add'])->name('cart
 Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 // Define the checkout route
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout', [CheckoutController::class, 'process'])->name('checkout.process');
+Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
 
 
 Route::get('/dashboard', function () {
