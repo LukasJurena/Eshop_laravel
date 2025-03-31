@@ -3,7 +3,7 @@
 @section('content')
 <div class="h-20"> </div>
 <div class="container py-10 mx-auto mt-8">
-    <h1 class="text-3xl font-semibold text-center mb-8 text-white mt-8">Naše Produkty</h1>
+    <h1 class="text-3xl font-semibold text-center mb-8 text-black mt-8">Naše Produkty</h1>
 
     <style>
         .product-grid {
@@ -63,10 +63,15 @@
             border-radius: 8px;
         }
     </style>
-    <!-- Vyhledávací formulář -->
-    <form method="GET" action="{{ route('products.index') }}" class="mb-8 text-center">
-        <input type="text" name="search" placeholder="Hledat produkt..." class="px-4 py-2 border rounded" value="{{ request()->query('search') }}">
-        <button type="submit" class="btn-primary">Hledat</button>
+
+    <form method="GET" action="{{ route('products.index') }}" class="mb-4">
+        <select name="sort_by" class="p-2 border border-gray-300 rounded">
+            <option value="name_asc" {{ request('sort_by') == 'name_asc' ? 'selected' : '' }}>Název (A-Z)</option>
+            <option value="name_desc" {{ request('sort_by') == 'name_desc' ? 'selected' : '' }}>Název (Z-A)</option>
+            <option value="price_asc" {{ request('sort_by') == 'price_asc' ? 'selected' : '' }}>Cena (nejnižší)</option>
+            <option value="price_desc" {{ request('sort_by') == 'price_desc' ? 'selected' : '' }}>Cena (nejvyšší)</option>
+        </select>
+        <button type="submit" class="btn-primary">Seřadit</button>
     </form>
     
     <div class="product-grid">

@@ -35,8 +35,8 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
-Route::get('products/search', [ProductController::class, 'search'])->name('products.search');
-
+Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
+Route::resource('products', ProductController::class);
 use App\Http\Controllers\ReviewController;
 Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store')->middleware('auth');
 
