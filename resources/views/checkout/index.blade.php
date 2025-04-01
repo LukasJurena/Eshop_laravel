@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="h-20">
-</div>
+<div class="h-20"></div>
     <div class="container py-10 mx-auto max-w-6xl">
         <h1 class="text-4xl font-semibold text-center text-black mb-8">Pokladna</h1>
 
@@ -63,6 +62,16 @@
                     <div class="mb-4">
                         <label for="address" class="block text-sm font-medium text-gray-700">Adresa</label>
                         <input type="text" name="address" id="address" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required>
+                    </div>
+
+                    <!-- Payment Method Selection -->
+                    <div class="mb-4">
+                        <label for="payment_method" class="block text-sm font-medium text-gray-700">Metoda platby</label>
+                        <select name="payment_method" id="payment_method" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required>
+                            <option value="paypal">PayPal</option>
+                            <option value="gopay">GoPay</option>
+                            <option value="visa">Visa</option>
+                        </select>
                     </div>
 
                     <div class="mt-6 flex justify-center">

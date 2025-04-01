@@ -19,11 +19,15 @@ Route::get('/questions', [QuestionController::class, 'index'])->name('questions.
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add/{productId}', [CartController::class, 'add'])->name('cart.add');
 Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+Route::patch('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+
+
 // Define the checkout route
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout', [CheckoutController::class, 'process'])->name('checkout.process');
 Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
 
+Route::get('payment/success', [CheckoutController::class, 'paymentSuccess'])->name('payment.success');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -38,7 +42,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
-Route::resource('products', ProductController::class);
+
 use App\Http\Controllers\ReviewController;
 Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store')->middleware('auth');
 

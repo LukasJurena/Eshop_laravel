@@ -75,4 +75,25 @@ class CartController extends Controller
         // Redirect back to the cart
         return back();
     }
+    public function update(Request $request, $id)
+    {
+        $cart = session()->get('cart', []);
+
+        if (isset($cart[$id])) {
+            $cart[$id]['quantity'] = max(1, (int) $request->quantity);
+            session()->put('cart', $cart);
+
+            $itemTotal = $cart[$id]['price'] * $cart[$id]['quantity'];
+            $cartTotal = array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $cart));
+
+            return response()->json([
+                'success' => true,
+                'itemTotal' => $itemTotal,
+                'cartTotal' => $cartTotal
+            ]);
+        }
+
+        return response()->json(['success' => false], 400);
+    }
+
 }

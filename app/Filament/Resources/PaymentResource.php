@@ -10,9 +10,10 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
-
+use Filament\Tables\Actions\Action;
 use App\Filament\Resources\PaymentResource\Pages;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderConfirmed;
 class PaymentResource extends Resource
 {
     protected static ?string $model = Payment::class;
@@ -40,10 +41,26 @@ class PaymentResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('payment_method'),
                 Tables\Columns\TextColumn::make('amount'),
-                Tables\Columns\TextColumn::make('status'),
+                Tables\Columns\TextColumn::make('status')
+                    ->badge()
+                    ->colors([
+                        'pending' => 'warning',
+                        'completed' => 'success',
+                        'failed' => 'danger',
+                    ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Action::make('confirmPayment')
+                ->label('Potvrdit platbu')
+                ->color('success')
+                ->icon('heroicon-o-check')
+                ->action(function (Payment $record) {
+                    $record->update(['status' => 'completed']);
+
+                    // Odeslat e-mail zákazníkovi
+                    Mail::to($record->user->email)->send(new OrderConfirmed($record));
+                })
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -58,4 +75,5 @@ class PaymentResource extends Resource
             'edit' => Pages\EditPayment::route('/{record}/edit'),
         ];
     }
+    
 }
