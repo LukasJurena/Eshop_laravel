@@ -23,13 +23,9 @@
                     <x-nav-link :href="route('questions.index')" :active="request()->routeIs('questions.index')">
                         {{ __('Questions') }}
                     </x-nav-link>
-                    <form method="GET" action="{{ route('products.search') }}" class="relative">
-                        <input type="text" name="query" placeholder="Search..." class="border rounded-md p-2 mt-3" />
-                        <button type="submit" class="absolute right-0 top-0 mt-6 mr-2">
-                            <svg class="h-6 w-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path fill="currentColor" d="M12.3 13.4c1.2-1.5 2-3.4 2-5.4C14.3 3.6 11.3 0 7 0S-0.3 3.6-0.3 7c0 3.4 2.7 6 6 6 2.1 0 3.9-.8 5.4-2 1.4 1.5 2.4 3.5 2.4 5.6h1.5c0-2.8-1-5.4-2.6-7.3zm-5.3 0C5 14.3 3 16 0 16c1.2 2 3.6 2 6 0 1-1 2-3 2-5.5zm1-6.4C8 3.5 9 2 9 2c1 0 3 1.4 3 2.1 0 .5-.4 1-1 1-.5 0-1 0-1-.5 0 0-.5-.5-1-1z" />
-                            </svg>
-                        </button>
+                    <form method="GET" action="{{ route('products.index') }}" class="flex items-center">
+                        <input type="text" name="query" placeholder="Hledat produkt..." class="px-4 py-2 border rounded" value="{{ request('query') }}">
+                        <button type="submit" class="ml-2 bg-blue-500 text-white px-4 py-2 rounded">Hledat</button>
                     </form>
                 </div>
             </div>
@@ -76,11 +72,17 @@
                 </x-dropdown>
             </div>
             <!-- Cart Button (top-right) -->
-            <a href="{{ route('cart.index') }}" class="inline-flex items-center justify-center p-2 rounded-md text-black dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                <svg class="h-6 w-6 text-black dark:text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path fill="currentColor" d="M3 2h14a1 1 0 011 1v14a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1zm7 3a2 2 0 11-4 0 2 2 0 014 0zM4 8h12v9H4V8z" />
+            <a href="{{ route('cart.index') }}" class="relative inline-flex items-center justify-center p-2 rounded-md text-black dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black dark:text-gray-400" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.6-8M7 13l1 5h8l1-5M9 18a1 1 0 100 2 1 1 0 000-2m6 0a1 1 0 100 2 1 1 0 000-2"/>
                 </svg>
                 <span class="ml-2">{{ __('Cart') }}</span>
+                
+                @if(session('cart') && count(session('cart')) > 0)
+                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                        {{ count(session('cart')) }}
+                    </span>
+                @endif
             </a>
         
             <!-- Hamburger -->

@@ -46,7 +46,11 @@ class CartController extends Controller
         // Otherwise, redirect to the cart page
         return redirect()->route('cart.index')->with('cart_message', 'Produkt byl přidán do košíku!');
     }
-
+    public function show($id)
+    {
+        $product = Product::with('reviews.user')->findOrFail($id);
+        return view('products.show', compact('product'));
+    }
     // Display the cart
     public function index()
     {
@@ -71,4 +75,25 @@ class CartController extends Controller
         // Redirect back to the cart
         return back();
     }
+    public function update(Request $request, $id)
+    {
+        $cart = session()->get('cart', []);
+
+        if (isset($cart[$id])) {
+            $cart[$id]['quantity'] = max(1, (int) $request->quantity);
+            session()->put('cart', $cart);
+
+            $itemTotal = $cart[$id]['price'] * $cart[$id]['quantity'];
+            $cartTotal = array_sum(array_map(fn($item) => $item['price'] * $item['quantity'], $cart));
+
+            return response()->json([
+                'success' => true,
+                'itemTotal' => $itemTotal,
+                'cartTotal' => $cartTotal
+            ]);
+        }
+
+        return response()->json(['success' => false], 400);
+    }
+
 }

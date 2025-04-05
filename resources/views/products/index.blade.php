@@ -3,9 +3,8 @@
 @section('content')
 <div class="h-20"> </div>
 <div class="container py-10 mx-auto mt-8">
-    <h1 class="text-3xl font-semibold text-center mb-8 text-white mt-8 !important">Naše Produkty</h1>
+    <h1 class="text-3xl font-semibold text-center mb-8 text-black mt-8">Naše Produkty</h1>
 
-    <!-- CSS pro Grid -->
     <style>
         .product-grid {
             display: grid;
@@ -51,89 +50,49 @@
         .btn-primary:hover {
             background-color: #0056b3;
         }
+
+        .confirmation-box {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
     </style>
 
+    <form method="GET" action="{{ route('products.index') }}" class="mb-4">
+        <select name="sort_by" class="p-2 border border-gray-300 rounded">
+            <option value="name_asc" {{ request('sort_by') == 'name_asc' ? 'selected' : '' }}>Název (A-Z)</option>
+            <option value="name_desc" {{ request('sort_by') == 'name_desc' ? 'selected' : '' }}>Název (Z-A)</option>
+            <option value="price_asc" {{ request('sort_by') == 'price_asc' ? 'selected' : '' }}>Cena (nejnižší)</option>
+            <option value="price_desc" {{ request('sort_by') == 'price_desc' ? 'selected' : '' }}>Cena (nejvyšší)</option>
+        </select>
+        <button type="submit" class="btn-primary">Seřadit</button>
+    </form>
+    
     <div class="product-grid">
         @foreach($products as $product)
         <div class="product-card">
-            <!-- Zobrazit skutečný obrázek z úložiště -->
-            <img id="main-image" src="{{ asset('storage/' . $product->images[0]) }}"
-            alt="{{ $product->name }}" class="product-image">
-
+            <img src="{{ asset('storage/' . $product->images[0]) }}" alt="{{ $product->name }}" class="product-image">
             <div class="p-4">
                 <h2 class="text-xl font-semibold mb-2 text-center">{{ $product->name }}</h2>
                 <p class="text-gray-600 mb-4 product-description">{{ $product->description }}</p>
                 <p>
                     Hodnocení:
-                    <strong>
-                    {{ number_format($product->averageRating(), 1) }} ⭐
-                    </strong>
+                    <strong>{{ number_format($product->averageRating(), 1) }} ⭐</strong>
                     <span class="text-gray-400">({{ $product->reviews->count() }}x)</span>
                 </p>
                 <p class="font-bold text-lg text-blue-600 mb-4 text-center">Cena: {{ $product->price }} Kč</p>
                 <a href="{{ route('products.show', $product->id) }}" class="btn-primary">Zobrazit detaily</a>
-                <button type="button" class="inline-block px-6 py-2 mt-2 text-white bg-green-500 rounded-md hover:bg-green-600 transition" onclick="showConfirmationBox('{{ route('cart.add', ['product' => $product->id]) }}', {{ $product->id }})">Přidat do košíku</button>
             </div>
         </div>
-    @endforeach
-
-
+        @endforeach
     </div>
 </div>
-<script>
-    // Funkce pro zobrazení potvrzovacího boxu
-    function showConfirmationBox(productUrl, productId) {
-        // Zobrazíme potvrzovací box pro daný produkt
-        document.getElementById('confirmation-box-' + productId).classList.remove('hidden');
-        document.getElementById('confirmation-box-' + productId).style.display = 'flex';
 
-        // Skryjeme zbytek potvrzovacích boxů
-        document.querySelectorAll('.confirmation-box').forEach(function(box) {
-            if (box.id !== 'confirmation-box-' + productId) {
-                box.style.display = 'none';
-            }
-        });
-    }
 
-    // Funkce pro přidání produktu do košíku a přesměrování na košík
-    // Funkce pro přidání produktu do košíku a přesměrování na košík
-    function addProductAndGoToCart(productId) {
-        // Poslat AJAX požadavek pro přidání do košíku
-        fetch("{{ route('cart.add', ['productId' => '__productId__']) }}".replace('__productId__', productId), {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify({ product_id: productId })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Přejít na košík
-                window.location.href = "{{ route('cart.index') }}";
-            }
-        });
-}
-</script>
-
-<!-- Potvrzovací boxy, které budou skryté a zobrazené pouze při kliknutí -->
-@foreach($products as $product)
-    <div id="confirmation-box-{{ $product->id }}" class="confirmation-box">
-        <div class="confirmation-content">
-            <p>Chcete zůstat na stránce nebo přejít do košíku?</p>
-            <div class="btn-container">
-                <!-- Form to stay on page and add item to cart -->
-                <form action="{{ route('cart.add', ['productId' => $product->id]) }}" method="POST" id="stay-form-{{ $product->id }}">
-                    @csrf
-                    <input type="hidden" name="stay" value="true">
-                    <button type="submit" class="btn">Zůstat na stránce</button>
-                </form>
-
-                <!-- Link to go to cart page -->
-                <a href="{{ route('cart.index') }}" class="btn" onclick="addProductAndGoToCart({{ $product->id }})">Přejít do košíku</a>
-            </div>
-        </div>
-    </div>
-@endforeach
 @endsection
