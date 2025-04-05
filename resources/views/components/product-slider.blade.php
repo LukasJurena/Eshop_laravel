@@ -1,5 +1,5 @@
 <!-- Products Horizontal Scroll Section -->
-<div class="py-10 bg-gray-100 dark:bg-gray-900"">
+<div class="p-10 bg-gray-100 dark:bg-gray-900"">
     <h2 class=" text-white text-3xl font-semibold text-center">Naše Produkty</h2>
     <div class="overflow-x-auto mt-6">
         <div class="flex space-x-4">

@@ -1,5 +1,5 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 fixed w-full z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 fixed w-full z-50 ">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 " style="font-family: Nunito;">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
@@ -23,6 +23,8 @@
                     <x-nav-link :href="route('questions.index')" :active="request()->routeIs('questions.index')">
                         {{ __('Questions') }}
                     </x-nav-link>
+
+                    <!-- Search Form -->
                     <form method="GET" action="{{ route('products.index') }}" class="flex items-center">
                         <input type="text" name="query" placeholder="Hledat produkt..." class="px-4 py-2 border rounded" value="{{ request('query') }}">
                         <button type="submit" class="ml-2 bg-blue-500 text-white px-4 py-2 rounded">Hledat</button>
@@ -31,55 +33,43 @@
             </div>
 
             <!-- User Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            @auth
-                                <div>{{ Auth::user()->name }}</div>
-                            @else
-                                <div>{{ __('Guest') }}</div>
-                            @endauth
+            <div x-data="{ open: false }" @click.away="open = false" class="relative">
+    <button @click="open = !open" class="inline-flex items-center px-3 py-5 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+        @auth
+            <div>{{ Auth::user()->name }}</div>
+        @else
+            <div>{{ __('Guest') }}</div>
+        @endauth
+        <div class="ms-1">
+            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+        </div>
+    </button>
 
-                            <div class="ms-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </button>
-                    </x-slot>
+    <div x-show="open" x-transition 
+        class="absolute w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-50 mt-2">
+        @auth
+            <x-dropdown-link :href="route('profile.edit')">{{ __('Profile') }}</x-dropdown-link>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">{{ __('Log Out') }}</x-dropdown-link>
+            </form>
+        @else
+            <x-dropdown-link :href="route('login')">{{ __('Log In') }}</x-dropdown-link>
+            <x-dropdown-link :href="route('register')">{{ __('Register') }}</x-dropdown-link>
+        @endauth
+    </div>
+</div>
+            
 
-                    <x-slot name="content">
-                        @auth
-                            <x-dropdown-link :href="route('profile.edit')">
-                                {{ __('Profile') }}
-                            </x-dropdown-link>
-
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <x-dropdown-link :href="route('logout')"
-                                                 onclick="event.preventDefault();
-                                                          this.closest('form').submit();">
-                                    {{ __('Log Out') }}
-                                </x-dropdown-link>
-                            </form>
-                        @else
-                            <x-dropdown-link :href="route('login')">
-                                {{ __('Login') }}
-                            </x-dropdown-link>
-                        @endauth
-                    </x-slot>
-                </x-dropdown>
-            </div>
             <!-- Cart Button (top-right) -->
             <a href="{{ route('cart.index') }}" class="relative inline-flex items-center justify-center p-2 rounded-md text-black dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black dark:text-gray-400" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.6-8M7 13l1 5h8l1-5M9 18a1 1 0 100 2 1 1 0 000-2m6 0a1 1 0 100 2 1 1 0 000-2"/>
-                </svg>
-                <span class="ml-2">{{ __('Cart') }}</span>
-                
+            <x-heroicon-o-shopping-bag class="h-6 w-6 text-black dark:text-gray-400" />
+                <span class="ml-2">{{ __('Košík') }}</span>
+
                 @if(session('cart') && count(session('cart')) > 0)
-                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                    <span class="cart-badge">
                         {{ count(session('cart')) }}
                     </span>
                 @endif
@@ -96,9 +86,13 @@
             </div>
         </div>
     </div>
-
+    
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+        <form method="GET" action="{{ route('products.index') }}" class="flex items-center">
+            <input type="text" name="query" placeholder="Hledat produkt..." class="px-4 py-2 border rounded" value="{{ request('query') }}">
+            <button type="submit" class="ml-2 bg-blue-500 text-white px-4 py-2 rounded">Hledat</button>
+        </form>
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 {{ __('Home') }}
@@ -138,3 +132,22 @@
         </div>
     </div>
 </nav>
+
+<style>
+.cart-badge {
+    position: absolute;
+    top: 0.75rem;   /* přibližně -top-3 */
+    right: -0.75rem; /* přibližně -right-3 */
+    background-color: #ef4444; /* Tailwind red-500 */
+    color: white;
+    font-size: 0.75rem; /* text-xs */
+    font-weight: bold;
+    border-radius: 9999px;
+    height: 1.25rem; /* h-5 */
+    width: 1.25rem;  /* w-5 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+</style>

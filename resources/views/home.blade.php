@@ -8,13 +8,15 @@
         <!-- Přechodový gradient -->
         
         <!-- Text vycentrovaný přes obrázek -->
-        <div class="absolute inset-0 flex items-center justify-center font-Nunito" style="font-family: Nunito;">
+        <div class="absolute inset-0 flex items-center justify-center" style="font-family: Nunito;">
             <h1 class="text-black text-5xl text-center" style="font-family: BebasNeue;">Vítejte na naší stránce!</h1>
         </div>
     </div>
+
     @livewire('gallery')
+
     <!-- Why Choose Us Section -->
-    <div class="py-10 text-center bg-gray-100">
+    <div class="py-10 text-center bg-gray-100" style="font-family: NunitoLight;">
         <h2 class="text-3xl font-semibold">Proč nakupovat u nás?</h2>
         <p class="mt-4 text-lg text-gray-700">Nabízíme nejlepší produkty za nejlepší ceny!</p>
         <div class="mt-6 flex flex-wrap justify-center gap-6">
@@ -41,9 +43,10 @@
             </div>
         </div>
     </div>
+
     <!-- Reviews Section (Now under the slider) -->
     @include('components.reviews')
-   @include('components.product-slider')
+    @include('components.product-slider')
 @endsection
 
 @push('scripts')
@@ -69,7 +72,7 @@
                     slidesPerView: 3,
                 },
             },
-            loop: true, // Přidá loop efekt
+            loop: true,
         });
     </script>
 @endpush

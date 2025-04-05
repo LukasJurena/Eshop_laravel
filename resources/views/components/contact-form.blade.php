@@ -1,7 +1,7 @@
-<div class="py-32 bg-gray-900 text-white text-center mb-80 h-auto">
-    <h1 class="text-5xl font-extrabold mb-24" style="margin-bottom: 100px !important;">Kontaktujte nás</h1>
+<div class="py-32 bg-gray-900 text-black text-center h-auto" style="font-family: NunitoLight;">
+    <h1 class="text-5xl font-extrabold mb-24" style="margin-bottom: 100px !important; font-family: BebasNeue;">Kontaktujte nás</h1>
 
-    <div class="max-w-4xl mx-auto grid grid-cols-2 gap-[50px] items-center" style="padding-top: 100px !important;">
+    <div class="max-w-4xl mx-auto grid grid-cols-2 gap-[50px] items-center" >
         <!-- Levá část - formulář -->
         <div class="space-y-6 text-left">
             <p class="text-gray-400 text-lg">

@@ -3,7 +3,7 @@
 @tailwind utilities;
 @font-face {
     font-family: 'Nunito';
-    src: url('/fonts/Nunito/Nunito-Black.ttf');
+    src: url('/fonts/Nunito/Nunito-Regular.ttf');
 }
 @font-face {
     font-family: 'NunitoLight';
