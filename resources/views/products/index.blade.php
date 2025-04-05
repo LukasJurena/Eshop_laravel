@@ -3,7 +3,7 @@
 @section('content')
 <div class="h-20"> </div>
 <div class="container py-10 mx-auto mt-8">
-    <h1 class="text-3xl font-semibold text-center mb-8 text-black mt-8">Naše Produkty</h1>
+    <h1 class="text-5xl font-semibold text-center mb-8 text-black mt-8 " style="font-family: BebasNeue;">Naše Produkty</h1>
 
     <style>
         .product-grid {
@@ -63,16 +63,83 @@
             border-radius: 8px;
         }
     </style>
+    <!-- Alpine.js musí být ve stránce -->
+    <script src="https://unpkg.com/alpinejs" defer></script>
 
-    <form method="GET" action="{{ route('products.index') }}" class="mb-4">
-        <select name="sort_by" class="p-2 border border-gray-300 rounded">
-            <option value="name_asc" {{ request('sort_by') == 'name_asc' ? 'selected' : '' }}>Název (A-Z)</option>
-            <option value="name_desc" {{ request('sort_by') == 'name_desc' ? 'selected' : '' }}>Název (Z-A)</option>
+    <form method="GET" action="{{ route('products.index') }}" class="flex items-center justify-between mb-6">
+        <div x-data="{ open: false, priceFrom: {{ request('price_from', 0) }}, priceTo: {{ request('price_to', 10000) }} }" class="relative">
+            <!-- Filtr tlačítko -->
+            <button type="button" @click="open = true"
+                class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-black bg-gray-200 rounded hover:bg-gray-300">
+                <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L15 13.414V19a1 1 0 01-.447.832l-4 2.5A1 1 0 019 21.5V13.414L3.293 6.707A1 1 0 013 6V4z" />
+                </svg>
+                <span style="font-family: Nunito;">Filtr</span>
+            </button>
+
+            <div x-show="open" class="fixed inset-0 bg-black bg-opacity-50 z-40" @click="open = false"></div>
+
+            <div x-show="open" x-transition
+                class="fixed top-0 left-0 w-80 h-full bg-white shadow-lg z-50 p-6 overflow-y-auto"
+                @click.away="open = false">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold text-gray-800">Filtr</h2>
+                    <button type="button" @click="open = false" class="text-gray-600 hover:text-black">✕</button>
+            </div>
+
+            <!-- Range slider -->
+            <div class="mb-4">
+                <label for="price_range" class="block text-sm mb-1" style="font-family: Nunito;">Rozsah cen:</label>
+                
+                <!-- Cena od slider -->
+                <div class="mb-2">
+                    <label for="price_from_range" class="block text-sm" style="font-family: NunitoLight;">Cena od:</label>
+                    <input type="range" id="price_from_range" name="price_from" min="0" max="10000" step="1"
+                           class="w-full" 
+                           x-model="priceFrom"
+                           x-bind:value="priceFrom">
+                    <div class="text-sm mt-1" style="font-family: NunitoLight;">Hodnota:</div>
+
+                    <!-- Cena od vyplňovací pole -->
+                    <input type="number" id="price_from_input" name="price_from" class="w-full p-2 mt-2 border rounded"
+                           x-model="priceFrom" min="0">
+                </div>
+
+                <!-- Cena do slider -->
+                <div class="mb-4">
+                    <label for="price_to_range" class="block text-sm" style="font-family: NunitoLight;">Cena do:</label>
+                    <input type="range" id="price_to_range" name="price_to" min="0" max="10000" step="1"
+                           class="w-full" 
+                           x-model="priceTo"
+                           x-bind:value="priceTo">
+                    <div class="text-sm mt-1" style="font-family: NunitoLight;">Hodnota:</div>
+
+                    <!-- Cena do vyplňovací pole -->
+                    <input type="number" id="price_to_input" name="price_to" class="w-full p-2 mt-2 border rounded"
+                           x-model="priceTo" min="0" style="font-family: NunitoLight;">
+                </div>
+            </div>
+
+            <!-- Odeslat -->
+            <button type="submit"
+                class="w-full px-4 py-2 mt-4 text-white bg-blue-600 rounded hover:bg-blue-700">Použít filtr</button>
+        </div>
+    </div>
+
+
+    <!-- PRAVÁ STRANA - Řazení -->
+    <div>
+        <label for="sort_by" class="sr-only">Řadit podle</label>
+        <select name="sort_by" id="sort_by" class="p-2 border border-gray-300 rounded" onchange="this.form.submit()">
+            <option value="">Řazení</option>
             <option value="price_asc" {{ request('sort_by') == 'price_asc' ? 'selected' : '' }}>Cena (nejnižší)</option>
             <option value="price_desc" {{ request('sort_by') == 'price_desc' ? 'selected' : '' }}>Cena (nejvyšší)</option>
+            <option value="name_asc" {{ request('sort_by') == 'name_asc' ? 'selected' : '' }}>Název (A-Z)</option>
+            <option value="name_desc" {{ request('sort_by') == 'name_desc' ? 'selected' : '' }}>Název (Z-A)</option>
         </select>
-        <button type="submit" class="btn-primary">Seřadit</button>
-    </form>
+    </div>
+</form>
     
     <div class="product-grid">
         @foreach($products as $product)

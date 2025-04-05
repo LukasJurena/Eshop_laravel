@@ -17,30 +17,35 @@ class ProductController extends Controller
                 ->orWhere('description', 'like', '%' . $request->search . '%');
         }
 
-        // Zpracování řazení
+        // Filtr podle ceny
+        if ($request->has('price_from') && $request->price_from != '') {
+            $query->where('price', '>=', $request->price_from);
+        }
+
+        if ($request->has('price_to') && $request->price_to != '') {
+            $query->where('price', '<=', $request->price_to);
+        }
+
+        // Řazení
         if ($request->has('sort_by')) {
-            $sortBy = $request->input('sort_by');
-            
-            switch ($sortBy) {
-                case 'name_asc':
-                    $query->orderBy('name', 'asc');
-                    break;
-                case 'name_desc':
-                    $query->orderBy('name', 'desc');
-                    break;
+            switch ($request->sort_by) {
                 case 'price_asc':
                     $query->orderBy('price', 'asc');
                     break;
                 case 'price_desc':
                     $query->orderBy('price', 'desc');
                     break;
+                case 'name_asc':
+                    $query->orderBy('name', 'asc');
+                    break;
+                case 'name_desc':
+                    $query->orderBy('name', 'desc');
+                    break;
             }
         }
 
-        // Získej produkty podle filtru a řazení
         $products = $query->get();
 
-        // Vrátit pohled se seznamem produktů
         return view('products.index', compact('products'));
     }
 

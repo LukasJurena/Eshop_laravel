@@ -18,7 +18,7 @@
 
         @foreach ($faqs as $faq)
             <div>
-                <button class="w-full text-left text-xl font-medium text-black bg-gray-700 px-6 py-4 rounded-lg flex justify-between items-center"
+                <button class="w-full text-left text-xl font-medium text-black bg-gray-700 px-6 py-4 rounded-lg flex justify-between items-center"  style="font-family: Nunito;"
                         onclick="toggleAnswer(this)">
                     {{ $faq['question'] }}
                     <span class="ml-4">+</span>

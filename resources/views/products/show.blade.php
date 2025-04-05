@@ -1,14 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="h-20"> </div>
 <div class="container mt-20 px-4 sm:px-6 lg:px-8 mx-auto relative top-11">
     <!-- Back Button (Přesunuto doleva nahoře) -->
-    <div class="fixed top-10 left-6 z-50">
-        <a href="{{ route('products.index') }}" class="btn btn-secondary bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-md">
-            Back to Products
-        </a>
-    </div>
+    <div class="fixed left-6 z-50" style="top: 5rem;">
+    <a href="{{ route('products.index') }}" class="btn btn-secondary bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-md">
+        Back to Products
+    </a>
+</div>
 
     <div class="product-details bg-white p-6 shadow-lg rounded-lg mx-auto w-full lg:w-4/5 flex justify-between">
         <!-- Product Image Section -->
@@ -250,22 +249,26 @@
             </style>
 
             <!-- Product Information Section -->
-            <div class="w-full lg:w-2/2 pl-4">
-                <h1 class="text-3xl font-semibold text-gray-800 mb-4 text-right">{{ $product->name }}</h1>
-                <p class="text-lg text-gray-600 mb-4 text-right">{{ $product->description }}</p>
-                <div class="flex justify-end text-lg font-medium text-gray-800">
-                    <p class="text-right"><strong>Price: </strong>{{ $product->price }} Kč</p>
-                    <p class="text-right"><strong>SKU: </strong>{{ $product->sku }}</p>
-                </div>
-                <div class="flex justify-end text-lg font-medium text-gray-800 mt-2">
-                    <p class="text-right"><strong>In Stock: </strong>{{ $product->in_stock }}</p>
-                    <p class="text-right">
-                        Hodnocení: <strong>{{ number_format($product->averageRating(), 1) }} ⭐</strong>
-                        <span class="text-gray-400">({{ $product->reviews->count() }}x)</span>
-                    </p>
-                </div>
-                <button type="button" class="inline-block px-6 py-2 mt-2 text-white bg-green-500 rounded-md hover:bg-green-600 transition" onclick="showConfirmationBox({{ $product->id }})">Přidat do košíku</button>
+            <div class="w-full lg:w-1/2 pl-4 flex justify-end">
+        <div class="text-right w-full max-w-lg">
+            <h1 class="text-3xl font-semibold text-gray-800 mb-4">{{ $product->name }}</h1>
+            <p class="text-lg text-gray-600 mb-4">{{ $product->description }}</p>
+            <div class="flex justify-end text-lg font-medium text-gray-800">
+                <p><strong>Price: </strong>{{ $product->price }} Kč</p>
+                <p><strong>SKU: </strong>{{ $product->sku }}</p>
             </div>
+            <div class="flex justify-end text-lg font-medium text-gray-800 mt-2">
+                <p><strong>In Stock: </strong>{{ $product->in_stock }}</p>
+                <p>
+                    Hodnocení: <strong>{{ number_format($product->averageRating(), 1) }} ⭐</strong>
+                    <span class="text-gray-400">({{ $product->reviews->count() }}x)</span>
+                </p>
+            </div>
+            <button type="button" class="inline-block px-6 py-2 mt-2 text-white bg-green-500 rounded-md hover:bg-green-600 transition" onclick="showConfirmationBox({{ $product->id }})">Přidat do košíku</button>
+        </div>
+    </div>
+    
+</div>
         </div>
     </div>
         <div class="p-8 m-8">
