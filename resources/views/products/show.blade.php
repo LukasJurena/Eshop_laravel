@@ -335,6 +335,7 @@
         </div>
 </div>
 <!-- Confirmation Box -->
+<!-- Confirmation Box -->
 <div id="confirmation-box-{{ $product->id }}" class="confirmation-box">
     <p>Chcete zůstat na stránce nebo přejít do košíku?</p>
     <div class="btn-container">
@@ -343,7 +344,11 @@
             <input type="hidden" name="stay" value="true">
             <button type="submit" class="btn" onclick="hideConfirmationBox({{ $product->id }})">Zůstat na stránce</button>
         </form>
-        <a href="{{ route('cart.index') }}" class="btn">Přejít do košíku</a>
+        <form action="{{ route('cart.add', ['productId' => $product->id]) }}" method="POST">
+            @csrf
+            <input type="hidden" name="stay" value="false">
+            <button type="submit" class="btn">Přejít do košíku</button>
+        </form>
     </div>
 </div>
 

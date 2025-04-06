@@ -35,12 +35,12 @@
                         @endphp
                         <tr class="border-b border-gray-200 hover:bg-gray-100 text-black">
                             <td class="px-6 py-4 text-sm font-medium">{{ $item['name'] }}</td>
-                            <td class="px-6 py-4 text-sm">${{ $item['price'] }}</td>
+                            <td class="px-6 py-4 text-sm">{{ $item['price'] }} Kč</td>
                             <td class="px-6 py-4 text-sm">
                                 <input type="number" name="quantity" class="quantity-input w-16 border p-2 text-center" 
                                        data-id="{{ $id }}" value="{{ $item['quantity'] }}" min="1">
                             </td>
-                            <td class="px-6 py-4 text-sm" id="total-price-{{ $id }}">${{ number_format($itemTotal, 2) }}</td>
+                            <td class="px-6 py-4 text-sm" id="total-price-{{ $id }}">{{ number_format($itemTotal, 2) }} Kč</td>
                             <td class="px-6 py-4 text-sm">
                                 <form action="{{ route('cart.remove', $id) }}" method="POST" class="inline-block">
                                     @csrf
@@ -57,7 +57,7 @@
         </div>
 
         <div class="mt-6 text-right text-lg font-semibold text-black">
-            Celková cena: <span id="cart-total" class="text-green-600">${{ number_format($totalPrice, 2) }}</span>
+            Celková cena: <span id="cart-total" class="text-green-600">{{ number_format($totalPrice, 2) }} Kč</span>
         </div>
 
         <div class="mt-8 flex justify-end">

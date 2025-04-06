@@ -146,15 +146,15 @@
         <div class="product-card">
             <img src="{{ asset('storage/' . $product->images[0]) }}" alt="{{ $product->name }}" class="product-image">
             <div class="p-4">
-                <h2 class="text-xl font-semibold mb-2 text-center">{{ $product->name }}</h2>
-                <p class="text-gray-600 mb-4 product-description">{{ $product->description }}</p>
+                <h2 class="text-xl font-semibold mb-2 text-center" style="font-family: Nunito;">{{ $product->name }}</h2>
+                <p class="text-gray-600 mb-4 product-description" style="font-family: NunitoLight;">{{ $product->description }}</p>
                 <p>
                     Hodnocení:
                     <strong>{{ number_format($product->averageRating(), 1) }} ⭐</strong>
-                    <span class="text-gray-400">({{ $product->reviews->count() }}x)</span>
+                    <span class="text-gray-400" style="font-family: Nunito;">({{ $product->reviews->count() }}x)</span>
                 </p>
-                <p class="font-bold text-lg text-blue-600 mb-4 text-center">Cena: {{ $product->price }} Kč</p>
-                <a href="{{ route('products.show', $product->id) }}" class="btn-primary">Zobrazit detaily</a>
+                <p class="font-bold text-lg text-blue-600 mb-4 text-center" style="font-family: Nunito;">Cena: {{ $product->price }} Kč</p>
+                <a href="{{ route('products.show', $product->id) }}" style="font-family: Nunito;" class="btn-primary">Zobrazit detaily</a>
             </div>
         </div>
         @endforeach
