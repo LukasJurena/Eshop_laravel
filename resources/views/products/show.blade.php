@@ -251,17 +251,17 @@
             <!-- Product Information Section -->
             <div class="w-full lg:w-1/2 pl-4 flex justify-end">
         <div class="text-right w-full max-w-lg">
-            <h1 class="text-3xl font-semibold text-gray-800 mb-4">{{ $product->name }}</h1>
-            <p class="text-lg text-gray-600 mb-4">{{ $product->description }}</p>
-            <div class="flex justify-end text-lg font-medium text-gray-800">
+            <h1 class="text-3xl font-semibold text-gray-800 mb-4" style="font-family: Nunito;">{{ $product->name }}</h1>
+            <p class="text-lg text-gray-600 mb-4" style="font-family: NunitoLight;">{{ $product->description }}</p>
+            <div class="flex justify-end text-lg font-medium text-gray-800" style="font-family: Nunito;">
                 <p><strong>Price: </strong>{{ $product->price }} Kč</p>
                 <p><strong>SKU: </strong>{{ $product->sku }}</p>
             </div>
-            <div class="flex justify-end text-lg font-medium text-gray-800 mt-2">
+            <div class="flex justify-end text-lg font-medium text-gray-800 mt-2" style="font-family: NunitoLight;">
                 <p><strong>In Stock: </strong>{{ $product->in_stock }}</p>
                 <p>
                     Hodnocení: <strong>{{ number_format($product->averageRating(), 1) }} ⭐</strong>
-                    <span class="text-gray-400">({{ $product->reviews->count() }}x)</span>
+                    <span class="text-gray-400" style="font-family: NunitoLight;">({{ $product->reviews->count() }}x)</span>
                 </p>
             </div>
             <button type="button" class="inline-block px-6 py-2 mt-2 text-white bg-green-500 rounded-md hover:bg-green-600 transition" onclick="showConfirmationBox({{ $product->id }})">Přidat do košíku</button>
@@ -273,19 +273,19 @@
     </div>
         <div class="p-8 m-8">
             <div class="mt-8 p-6 bg-white shadow-lg rounded-lg">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Customer Reviews</h2>
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4" style="font-family: Nunito;">Customer Reviews</h2>
 
                 <!-- Výpis recenzí -->
                 @if($product->reviews->count() > 0)
                 @foreach($product->reviews as $review)
-                <div class="border-b border-gray-200 pb-4 mb-4">
-                    <p class="text-lg font-semibold">{{ $review->user->name ?? 'Neznámý uživatel' }}</p>
+                <div class="border-b border-gray-200 pb-4 mb-4 "style="font-family: NunitoLight;">
+                    <p class="text-lg font-semibold" style="font-family: Nunito;">{{ $review->user->name ?? 'Neznámý uživatel' }}</p>
                     <p class="text-yellow-500">⭐ {{ $review->rating }} / 5</p>
                     <p class="text-gray-700">{{ $review->comment }}</p>
                 </div>
                 @endforeach
                 @else
-                <p class="text-gray-500">No reviews yet. Be the first to review this product!</p>
+                <p class="text-gray-500" style="font-family: Nunito;">No reviews yet. Be the first to review this product!</p>
                 @endif
 
                 <!-- Formulář pro přidání recenze -->
@@ -297,9 +297,9 @@
                 @endphp
 
                 @if($existingReview)
-                <p class="text-lg font-semibold text-gray-600">You have already reviewed this product. Thank you!</p>
+                <p class="text-lg font-semibold text-gray-600" style="font-family: Nunito;">You have already reviewed this product. Thank you!</p>
                 @else
-                <div class="mt-6">
+                <div class="mt-6" style="font-family: Nunito;">
                     <h3 class="text-xl font-semibold text-gray-800 mb-2">Add a Review</h3>
                     <form action="{{ route('reviews.store') }}" method="POST">
                         @csrf
@@ -325,8 +325,8 @@
                 </div>
                 @endif
                 @else
-                <p class="mt-4 text-gray-500">
-                    <a href="{{ route('login') }}" class="text-blue-500 hover:underline">Log in</a> to leave a review.
+                <p class="mt-4 text-gray-500" style="font-family: Nunito;">
+                    <a href="{{ route('login') }}" class="text-blue-500 hover:underline" >Log in</a> to leave a review.
                 </p>
                 @endauth
             </div>
@@ -335,32 +335,46 @@
         </div>
 </div>
 <!-- Confirmation Box -->
-<!-- Confirmation Box -->
-<div id="confirmation-box-{{ $product->id }}" class="confirmation-box">
-    <p>Chcete zůstat na stránce nebo přejít do košíku?</p>
-    <div class="btn-container">
-        <form action="{{ route('cart.add', ['productId' => $product->id]) }}" method="POST">
-            @csrf
-            <input type="hidden" name="stay" value="true">
-            <button type="submit" class="btn" onclick="hideConfirmationBox({{ $product->id }})">Zůstat na stránce</button>
-        </form>
-        <form action="{{ route('cart.add', ['productId' => $product->id]) }}" method="POST">
-            @csrf
-            <input type="hidden" name="stay" value="false">
-            <button type="submit" class="btn">Přejít do košíku</button>
-        </form>
+<div id="confirmation-box-{{ $product->id }}" 
+     class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+    
+    <!-- Modal -->
+    <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md text-center">
+        <p class="text-xl font-semibold mb-6">Chcete zůstat na stránce nebo přejít do košíku?</p>
+        
+        <div class="flex justify-center gap-4">
+            <form action="{{ route('cart.add', ['productId' => $product->id]) }}" method="POST">
+                @csrf
+                <input type="hidden" name="stay" value="true">
+                <button type="submit"
+                        class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                        onclick="hideConfirmationBox({{ $product->id }})">
+                    Zůstat
+                </button>
+            </form>
+
+            <form action="{{ route('cart.add', ['productId' => $product->id]) }}" method="POST">
+                @csrf
+                <input type="hidden" name="stay" value="false">
+                <button type="submit"
+                        class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                    Do košíku
+                </button>
+            </form>
+        </div>
     </div>
 </div>
+
 
 </div>
 
 <script>
 function showConfirmationBox(productId) {
-    document.getElementById('confirmation-box-' + productId).style.display = 'block';
+    document.getElementById('confirmation-box-' + productId).classList.remove('hidden');
 }
 
 function hideConfirmationBox(productId) {
-    document.getElementById('confirmation-box-' + productId).style.display = 'none';
+    document.getElementById('confirmation-box-' + productId).classList.add('hidden');
 }
 </script>
 @endsection
