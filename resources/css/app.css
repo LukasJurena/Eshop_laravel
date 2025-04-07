@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+    font-family: 'Nunito';
+    src: url('/fonts/Nunito/Nunito-Regular.ttf');
+}
+@font-face {
+    font-family: 'NunitoLight';
+    src: url('/fonts/Nunito/Nunito-Light.ttf');
+}
+@font-face {
+    font-family: BebasNeue;
+    src: url("../../public/fonts/BebasNeue/BebasNeue-Regular.ttf");
+}
+html.lenis, html.lenis body {
+    height: auto;
+   }
+   .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+   }
+   .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+   }
+   .lenis.lenis-stopped {
+    overflow: hidden;
+   }
+   .lenis.lenis-smooth iframe {
+    pointer-events: none;
+   }

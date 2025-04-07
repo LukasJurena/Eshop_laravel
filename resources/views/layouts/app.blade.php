@@ -10,20 +10,19 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+    @livewireStyles
     <!-- GSAP for animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
+    
+    <script src="//unpkg.com/alpinejs" defer></script>
     <!-- Custom Styles -->
     <style>
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
-            font-family: 'Arial', sans-serif;
             overflow: auto; /* Allow scrolling */
         }
         .layout-wrapper {
@@ -85,6 +84,7 @@
     </style>
 </head>
 <body class="font-sans antialiased">
+@livewireScripts
     <div class="layout-wrapper bg-gray-100 dark:bg-gray-900">
         <!-- Page transition overlay with "Barvio" text -->
         <div class="page-transition">

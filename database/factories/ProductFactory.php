@@ -31,8 +31,7 @@ class ProductFactory extends Factory
             'price' => $this->faker->randomFloat(2, 10, 1000), // Cena v rozsahu od 10 do 1000 s dvěma desetinnými místy
             'sku' => strtoupper(Str::random(10)), // Generování náhodného SKU
             'in_stock' => $this->faker->numberBetween(0, 100), // Počet kusů na skladě
-            'created_at' => now(),
-            'updated_at' => now(),
+            'images' => json_encode(['placeholder.jpg']), // Přidání placeholder obrázku
         ];
     }
 }
