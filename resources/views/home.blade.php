@@ -45,6 +45,7 @@
     </div>
 
     <!-- Reviews Section (Now under the slider) -->
+    @include('components.model-viewer')
     @include('components.reviews')
     @include('components.product-slider')
 @endsection
