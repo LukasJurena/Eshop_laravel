@@ -1,7 +1,7 @@
 <!-- 3D Model pomocí <model-viewer> -->
     <div class="w-full flex justify-center bg-gray-100 py-10">
         <model-viewer 
-            src="{{ asset('storage/3d/model_circle.glb') }}"
+            src="{{ asset('/3d/model_circle.glb') }}"
             alt="3D model produktu"
             auto-rotate 
             camera-controls 
