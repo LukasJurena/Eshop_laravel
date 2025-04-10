@@ -1,110 +1,75 @@
 @extends('layouts.app')
-
+@php
+    $slides = [
+        [
+            'title' => 'Nová Kolekce 2025',
+            'description' => 'Styl. Rychlost. Svoboda. Projeď se s námi ve stylu nové generace.',
+            'image' => asset('images/skate-hero.png'),
+            'alt' => 'Skater',
+        ],
+        [
+            'title' => 'Limitovaná Edice',
+            'description' => 'Exkluzivní designy, které nikde jinde nenajdete. Buď jedinečný.',
+            'image' => asset('images/skate2.jpg'),
+            'alt' => 'Limited Edition Skateboard',
+        ],
+        [
+            'title' => 'Pro Začátečníky i Profíky',
+            'description' => 'Vybavení pro každou úroveň zkušeností. Začni svou cestu s námi.',
+            'image' => asset('images/skate3.jpg'),
+            'alt' => 'Skate Park',
+        ],
+    ];
+@endphp
 @section('content')
 <!-- Hero Section Fullscreen Split Left-Right -->
-<div class="min-h-screen bg-black text-white flex items-center">
-    <div class="w-full flex flex-col md:flex-row items-center justify-between">
-        <!-- Levá část: Text -->
-        <div class="w-full md:w-1/2 text-center md:text-left flex justify-center md:justify-start items-center" style="font-family: Nunito;">
-            <div>
-                <h1 class="text-5xl md:text-6xl font-bold mb-6" style="font-family: BebasNeue;">
-                    Nová Kolekce 2025
-                </h1>
-                <p class="text-lg md:text-xl mb-8" style="font-family: NunitoLight;">
-                    Styl. Rychlost. Svoboda. Projeď se s námi ve stylu nové generace.
-                </p>
-                <a href="/products" class="inline-block bg-yellow-400 text-black font-semibold py-3 px-6 rounded-lg hover:bg-yellow-300 transition">
-                    Prohlédnout kolekci
-                </a>
+{{-- resources/views/components/hero-carousel.blade.php --}}
+<div x-data="{ current: 0, slides: {{ json_encode($slides) }} }" x-init="setInterval(() => current = (current + 1) % slides.length, 5000)" class="relative min-h-screen bg-black text-white overflow-hidden">
+    <template x-for="(item, index) in slides" :key="index">
+        <div x-show="current === index" class="absolute inset-0 transition-opacity duration-1000 ease-in-out flex flex-col md:flex-row items-center justify-between z-10">
+            <!-- Text vlevo -->
+            <div class="w-full md:w-1/2 text-center md:text-left flex justify-center md:justify-start items-center p-8 md:p-16 z-20">
+                <div>
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6 font-['BebasNeue', sans-serif]" x-text="item.title"></h1>
+                    <p class="text-lg md:text-xl mb-8 font-light" x-text="item.description"></p>
+                    <a href="/products" class="inline-block bg-yellow-400 text-black font-semibold py-3 px-6 rounded-lg hover:bg-yellow-300 transition">
+                        Prohlédnout kolekci
+                    </a>
+                </div>
+            </div>
+
+            <!-- Obrázek vpravo -->
+            <div class="w-full md:w-1/2 h-full">
+                <img :src="item.image" :alt="item.alt" class="object-cover w-full h-full max-h-screen" />
             </div>
         </div>
+    </template>
 
-        <!-- Pravá část: Obrázek -->
-        <div class="w-full md:w-1/2 h-full mt-10 md:mt-0">
-            <img src="{{ asset('images/skate-hero.png') }}" alt="Skater"
-                class="w-full h-full object-cover">
-        </div>
+    <!-- Šipky -->
+    <button @click="current = (current - 1 + slides.length) % slides.length"
+        class="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition">
+    <x-heroicon-o-chevron-left class="w-6 h-6" />
+</button>
+    </button>
+    <button @click="current = (current + 1) % slides.length"
+        class="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition">
+    <x-heroicon-o-chevron-right class="w-6 h-6" />
+</button>
+
+    <!-- Indikátory -->
+    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex space-x-2">
+        <template x-for="(item, index) in slides" :key="index">
+            <button @click="current = index"
+                :class="{'bg-yellow-400 w-6': current === index, 'bg-white/50 w-3': current !== index}"
+                class="h-3 rounded-full transition-all"></button>
+        </template>
     </div>
 </div>
 
     @livewire('gallery')
 
 <!-- Why Choose Us Section -->
-<div class="py-10 text-center bg-gray-100" style="font-family: NunitoLight;">
-    <h2 class="text-3xl font-semibold text-gray-900">Proč nakupovat u nás?</h2>
-    <p class="mt-4 text-lg text-gray-700">Nabízíme nejlepší produkty za nejlepší ceny!</p>
-    <div class="mt-6 flex flex-wrap justify-center gap-6">
-        <!-- Rychlá Doprava -->
-        <div class="card bg-white shadow-xl rounded-lg p-6 max-w-xs transform transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-yellow-100 hover:shadow-2xl hover:rotate-3">
-            <div class="flex justify-center">
-                <x-heroicon-o-truck class="h-16 w-16 text-yellow-500" />
-            </div>
-            <h3 class="text-lg font-bold mt-4" style="font-family: Nunito;">Rychlá Doprava</h3>
-            <p class="mt-2 text-gray-600" style="font-family: Nunito-Light;">Zaručujeme rychlé dodání vašich objednávek.</p>
-        </div>
-
-        <!-- Kvalitní Produkty -->
-        <div class="card bg-white shadow-xl rounded-lg p-6 max-w-xs transform transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-yellow-100 hover:shadow-2xl hover:rotate-3">
-            <div class="flex justify-center">
-                <x-iconsax-bro-sidebar-right class="h-16 w-16 text-yellow-500" />
-            </div>
-            <h3 class="text-lg font-bold mt-4" style="font-family: Nunito;">Kvalitní Produkty</h3>
-            <p class="mt-2 text-gray-600" style="font-family: Nunito-Light;">Naše produkty procházejí důkladným výběrem kvality.</p>
-        </div>
-
-        <!-- Zákaznická Podpora -->
-        <div class="card bg-white shadow-xl rounded-lg p-6 max-w-xs transform transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-yellow-100 hover:shadow-2xl hover:rotate-3">
-            <div class="flex justify-center">
-                <x-gmdi-support-agent-o class="h-16 w-16 text-yellow-500" />
-            </div>
-            <h3 class="text-lg font-bold mt-4" style="font-family: Nunito;">Zákaznická Podpora</h3>
-            <p class="mt-2 text-gray-600" style="font-family: NunitoLight;">Jsme tu pro vás, abychom zodpověděli všechny vaše dotazy.</p>
-        </div>
-    </div>
-</div>
-
-<!-- JavaScript pro 3D efekt pouze na kartě -->
-<script>
-    // Funkce pro pohyb myši nad kartou
-    function initCardMovement() {
-        const cards = document.querySelectorAll('.card');
-        
-        cards.forEach(card => {
-            let frameRequested = false;
-
-            // Při pohybu myši nad kartou
-            card.addEventListener('mousemove', (e) => {
-                if (!frameRequested) {
-                    requestAnimationFrame(() => {
-                        const { clientX: mouseX, clientY: mouseY } = e;
-                        const { offsetLeft: cardX, offsetTop: cardY, offsetWidth: cardWidth, offsetHeight: cardHeight } = card;
-                        const cardCenterX = cardX + cardWidth / 2;
-                        const cardCenterY = cardY + cardHeight / 2;
-
-                        const deltaX = (mouseX - cardCenterX) / 35; // Úprava citlivosti rotace
-                        const deltaY = (mouseY - cardCenterY) / 35;
-
-                        card.style.transition = 'transform 0.1s ease-out'; // Hladký přechod při pohybu
-                        card.style.transform = `perspective(1200px) rotateX(${deltaY}deg) rotateY(${deltaX}deg)`;
-                        frameRequested = false;
-                    });
-                    frameRequested = true;
-                }
-            });
-
-            // Když myš opustí kartu
-            card.addEventListener('mouseleave', () => {
-                card.style.transition = 'transform 0.3s ease-in-out'; // Plynulý návrat
-                card.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
-            });
-        });
-    }
-
-    // Inicializace efektu při načítání stránky
-    document.addEventListener('DOMContentLoaded', initCardMovement);
-</script>
-
-
+@include('components.why-choose-us')
     <!-- Reviews Section (Now under the slider) -->
     @include('components.model-viewer')
     @include('components.reviews')

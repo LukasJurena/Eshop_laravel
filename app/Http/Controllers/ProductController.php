@@ -9,42 +9,38 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::query();
+        
+        $products = Product::query();
 
-        // Pokud je zadán vyhledávací výraz, filtruj produkty
-        if ($request->has('search') && $request->search != '') {
-            $query->where('name', 'like', '%' . $request->search . '%')
-                ->orWhere('description', 'like', '%' . $request->search . '%');
+        // Apply filters if present
+        if ($request->has('price_from')) {
+            $products->where('price', '>=', $request->input('price_from'));
+        }
+        if ($request->has('price_to')) {
+            $products->where('price', '<=', $request->input('price_to'));
+        }
+        if ($request->has('category')) {
+            $products->whereIn('category', $request->input('category'));
         }
 
-        // Filtr podle ceny
-        if ($request->has('price_from') && $request->price_from != '') {
-            $query->where('price', '>=', $request->price_from);
-        }
-
-        if ($request->has('price_to') && $request->price_to != '') {
-            $query->where('price', '<=', $request->price_to);
-        }
-
-        // Řazení
+        // Apply sorting if present
         if ($request->has('sort_by')) {
-            switch ($request->sort_by) {
-                case 'price_asc':
-                    $query->orderBy('price', 'asc');
-                    break;
-                case 'price_desc':
-                    $query->orderBy('price', 'desc');
-                    break;
-                case 'name_asc':
-                    $query->orderBy('name', 'asc');
-                    break;
-                case 'name_desc':
-                    $query->orderBy('name', 'desc');
-                    break;
+            $sort = $request->input('sort_by');
+            if ($sort == 'price_asc') {
+                $products->orderBy('price', 'asc');
+            } elseif ($sort == 'price_desc') {
+                $products->orderBy('price', 'desc');
+            } elseif ($sort == 'name_asc') {
+                $products->orderBy('name', 'asc');
+            } elseif ($sort == 'name_desc') {
+                $products->orderBy('name', 'desc');
+            } elseif ($sort == 'rating_desc') {
+                $products->orderBy('rating', 'desc');
             }
         }
 
-        $products = $query->get();
+        // Paginate the results
+        $products = $products->paginate(12); // Change 12 to the number of items per page you want
 
         return view('products.index', compact('products'));
     }
