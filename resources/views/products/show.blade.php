@@ -28,7 +28,7 @@
                                 style="height: 400px; width: 100%; cursor: zoom-in;">
                             
                             <!-- Overlay with zoom icon -->
-                            <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 flex items-center justify-center transition-all duration-300 opacity-0 hover:opacity-100">
+                            <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 flex items-center justify-center transition-all duration-300 opacity-0 hover:opacity-100 cursor-pointer">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                                 </svg>
@@ -81,9 +81,7 @@
                                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                             </svg>
                                         @else
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
-                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                            </svg>
+                                            
                                         @endif
                                     @endfor
                                 </div>
@@ -199,41 +197,41 @@
         </div>
         
         <!-- Reviews Section -->
-        <div class="mt-12">
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-                <div class="p-6 lg:p-8">
-                    <h2 class="text-2xl font-bold mb-6 flex items-center" style="font-family: BebasNeue;">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-                        </svg>
-                        HODNOCENÍ ZÁKAZNÍKŮ
-                    </h2>
-                    
-                    <!-- Review Summary -->
-                    <div class="flex flex-col md:flex-row gap-8 mb-8 pb-8 border-b border-gray-200">
-                        <!-- Left: Average Rating -->
-                        <div class="w-full md:w-1/3 flex flex-col items-center justify-center">
-                            <div class="text-5xl font-bold text-black mb-2" style="font-family: Nunito;">
-                                {{ number_format($product->averageRating(), 1) }}
-                            </div>
-                            <div class="flex text-yellow-400 mb-2">
-                                @for($i = 1; $i <= 5; $i++)
-                                    @if($i <= round($product->averageRating()))
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                        </svg>
-                                    @else
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
-                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                        </svg>
-                                    @endif
-                                @endfor
-                            </div>
-                            <div class="text-sm text-gray-600" style="font-family: NunitoLight;">
-                                Celkem {{ $product->reviews->count() }} {{ $product->reviews->count() == 1 ? 'hodnocení' : 'hodnocení' }}
-                            </div>
-                        </div>
-                        
+<div class="mt-12">
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+        <div class="p-6 lg:p-8">
+            <h2 class="text-2xl font-bold mb-6 flex items-center" style="font-family: BebasNeue;">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                </svg>
+                HODNOCENÍ ZÁKAZNÍKŮ
+            </h2>
+            
+            <!-- Review Summary -->
+            <div class="flex flex-col md:flex-row gap-8 mb-8 pb-8 border-b border-gray-200">
+    <!-- Left: Average Rating -->
+    <div class="w-full md:w-1/3 flex flex-col items-center justify-center">
+        <div class="text-5xl font-bold text-black mb-2" style="font-family: Nunito;">
+            {{ number_format($product->averageRating(), 1) }}
+        </div>
+        <div class="flex text-yellow-400 mb-2">
+            @php
+                $avgRating = round($product->averageRating());
+            @endphp
+            @for($i = 1; $i <= 5; $i++)
+                @if($i <= $avgRating)
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                @else
+                
+                @endif
+            @endfor
+        </div>
+                    <div class="text-sm text-gray-600" style="font-family: NunitoLight;">
+                        Celkem {{ $product->reviews->count() }} {{ $product->reviews->count() == 1 ? 'hodnocení' : 'hodnocení' }}
+                    </div>
+                </div>
                         <!-- Right: Rating Breakdown -->
                         <div class="w-full md:w-2/3">
                             @php
@@ -283,9 +281,7 @@
                                                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                                             </svg>
                                                         @else
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
-                                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                                            </svg>
+                                                            
                                                         @endif
                                                     @endfor
                                                 </div>
@@ -296,12 +292,12 @@
                                         </div>
                                     </div>
                                     <p class="text-gray-700" style="font-family: NunitoLight;">{{ $review->comment }}</p>
-                                </div>
+                            </div >
                             @endforeach
                         @else
                             <div class="text-center py-8">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-400 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255  stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255  stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                                 <h3 class="text-xl font-bold mb-2" style="font-family: Nunito;">Zatím žádné recenze</h3>
                                 <p class="text-gray-600 mb-6" style="font-family: NunitoLight;">Buďte první, kdo ohodnotí tento produkt!</p>
@@ -437,11 +433,16 @@
             <p class="text-gray-600 mb-6" style="font-family: NunitoLight;">Co si přejete udělat dále?</p>
             
             <div class="flex flex-col sm:flex-row gap-3">
-                <button type="button" onclick="hideConfirmationBox({{ $product->id }})" 
-                    class="flex-1 bg-gray-200 text-gray-800 py-3 px-4 rounded-lg hover:bg-gray-300 transition-colors"
-                    style="font-family: Nunito;">
-                    Pokračovat v nákupu
-                </button>
+                <form action="{{ route('cart.add', ['productId' => $product->id]) }}" method="POST" class="flex-1">
+                    @csrf
+                    <input type="hidden" name="stay" value="true">
+                    <input type="hidden" name="quantity" id="modal-quantity-stay" value="1">
+                    <button type="submit"
+                        class="w-full bg-gray-200 text-gray-800 py-3 px-4 rounded-lg hover:bg-gray-300 transition-colors"
+                        style="font-family: Nunito;">
+                        Pokračovat v nákupu
+                    </button>
+                </form>
                 
                 <form action="{{ route('cart.add', ['productId' => $product->id]) }}" method="POST" class="flex-1">
                     @csrf
@@ -482,148 +483,176 @@
 </div>
 
 <script>
-    function addToCart(productId) {
-        // Show the confirmation modal
-        document.getElementById('cart-confirmation').classList.remove('hidden');
+    document.addEventListener('DOMContentLoaded', function() {
+    const images = @json($product->images);
+    let currentIndex = 0;
+    const totalImages = images.length;
+    
+    const mainImage = document.getElementById('main-image');
+    const imageCarousel = document.getElementById('image-carousel');
+    const nextButton = document.getElementById('next-image');
+    const prevButton = document.getElementById('prev-image');
+    const thumbnails = document.querySelectorAll('.image-thumbnail');
+    
+    // Modal elements
+    const modal = document.getElementById('image-modal');
+    const modalImage = document.getElementById('modal-image');
+    const closeModal = document.getElementById('close-modal');
+    const prevModalImage = document.getElementById('prev-modal-image');
+    const nextModalImage = document.getElementById('next-modal-image');
+    
+    // Update the main image based on the index
+    function updateMainImage(index) {
+        mainImage.src = '{{ asset('storage') }}/' + images[index];
         
-        // Send AJAX request to add the product to the cart
-        fetch(`/cart/add/${productId}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Ensure CSRF token is present
-            },
-            body: JSON.stringify({
-                stay: 'false'  // Change to 'true' if you want to stay on the page after adding to the cart
-            })
-        })
-        .then(response => response.json()) // Parse the JSON response
-        .then(data => {
-            if (data.success) {
-                // Successfully added to cart (you can handle more here)
-                console.log('Product added to cart!');
+        // Update active thumbnail
+        thumbnails.forEach((thumb, i) => {
+            if (i === index) {
+                thumb.classList.add('ring-2', 'ring-yellow-400');
             } else {
-                console.error('Failed to add to cart:', data.message || 'Unknown error');
+                thumb.classList.remove('ring-2', 'ring-yellow-400');
             }
-        })
-        .catch(error => {
-            console.error('Error adding to cart:', error);
         });
     }
-    // Image Gallery
-    document.addEventListener('DOMContentLoaded', function() {
-        const images = @json($product->images);
-        let currentIndex = 0;
-        const totalImages = images.length;
-        
-        const mainImage = document.getElementById('main-image');
-        const imageCarousel = document.getElementById('image-carousel');
-        const nextButton = document.getElementById('next-image');
-        const prevButton = document.getElementById('prev-image');
-        const thumbnails = document.querySelectorAll('.image-thumbnail');
-        
-        // Modal elements
-        const modal = document.getElementById('image-modal');
-        const modalImage = document.getElementById('modal-image');
-        const closeModal = document.getElementById('close-modal');
-        const prevModalImage = document.getElementById('prev-modal-image');
-        const nextModalImage = document.getElementById('next-modal-image');
-        
-        // Update the main image based on the index
-        function updateMainImage(index) {
-            mainImage.src = '{{ asset('storage') }}/' + images[index];
-            
-            // Update active thumbnail
-            thumbnails.forEach((thumb, i) => {
-                if (i === index) {
-                    thumb.classList.add('ring-2', 'ring-yellow-400');
-                } else {
-                    thumb.classList.remove('ring-2', 'ring-yellow-400');
-                }
-            });
-        }
-        
-        // Navigate to the next image
-        nextButton.addEventListener('click', function() {
-            currentIndex = (currentIndex + 1) % totalImages;
+    
+    // Navigate to the next image
+    nextButton.addEventListener('click', function() {
+        currentIndex = (currentIndex + 1) % totalImages;
+        updateMainImage(currentIndex);
+    });
+    
+    // Navigate to the previous image
+    prevButton.addEventListener('click', function() {
+        currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+        updateMainImage(currentIndex);
+    });
+    
+    // Thumbnail click functionality
+    thumbnails.forEach((thumbnail, index) => {
+        thumbnail.addEventListener('click', function() {
+            currentIndex = index;
             updateMainImage(currentIndex);
         });
-        
-        // Navigate to the previous image
-        prevButton.addEventListener('click', function() {
-            currentIndex = (currentIndex - 1 + totalImages) % totalImages;
-            updateMainImage(currentIndex);
+    });
+    
+    // Modal functionality - FIX: Add event listener to both the image and the overlay
+    mainImage.addEventListener('click', function() {
+        openImageModal();
+    });
+    
+    // Also add click handler to the overlay with zoom icon
+    const zoomOverlay = document.querySelector('.absolute.inset-0.bg-black');
+    if (zoomOverlay) {
+        zoomOverlay.addEventListener('click', function() {
+            openImageModal();
         });
-        
-        // Thumbnail click functionality
-        thumbnails.forEach((thumbnail, index) => {
-            thumbnail.addEventListener('click', function() {
-                currentIndex = index;
-                updateMainImage(currentIndex);
-            });
-        });
-        
-        // Modal functionality
-        mainImage.addEventListener('click', function() {
-            modalImage.src = this.src;
-            modal.classList.remove('hidden');
-        });
-        
-        closeModal.addEventListener('click', function() {
+    }
+    
+    function openImageModal() {
+        modalImage.src = mainImage.src;
+        modal.classList.remove('hidden');
+    }
+    
+    closeModal.addEventListener('click', function() {
+        modal.classList.add('hidden');
+    });
+    
+    prevModalImage.addEventListener('click', function() {
+        currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+        modalImage.src = '{{ asset('storage') }}/' + images[currentIndex];
+        updateMainImage(currentIndex);
+    });
+    
+    nextModalImage.addEventListener('click', function() {
+        currentIndex = (currentIndex + 1) % totalImages;
+        modalImage.src = '{{ asset('storage') }}/' + images[currentIndex];
+        updateMainImage(currentIndex);
+    });
+    
+    // Close modal on background click
+    modal.addEventListener('click', function(event) {
+        if (event.target === modal) {
             modal.classList.add('hidden');
-        });
-        
-        prevModalImage.addEventListener('click', function() {
-            currentIndex = (currentIndex - 1 + totalImages) % totalImages;
-            modalImage.src = '{{ asset('storage') }}/' + images[currentIndex];
-            updateMainImage(currentIndex);
-        });
-        
-        nextModalImage.addEventListener('click', function() {
-            currentIndex = (currentIndex + 1) % totalImages;
-            modalImage.src = '{{ asset('storage') }}/' + images[currentIndex];
-            updateMainImage(currentIndex);
-        });
-        
-        // Close modal on background click
-        modal.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                modal.classList.add('hidden');
-            }
-        });
-        
-        // Quantity input functionality
-        const quantityInput = document.getElementById('quantity');
-        const incrementButton = document.querySelector('[data-action="increment"]');
-        const decrementButton = document.querySelector('[data-action="decrement"]');
-        const modalQuantityInput = document.getElementById('modal-quantity');
-        
-        incrementButton.addEventListener('click', function() {
-            const currentValue = parseInt(quantityInput.value);
-            const maxValue = parseInt(quantityInput.getAttribute('max'));
-            if (currentValue < maxValue) {
-                quantityInput.value = currentValue + 1;
+        }
+    });
+    
+    // Quantity input functionality
+    const quantityInput = document.getElementById('quantity');
+    const incrementButton = document.querySelector('[data-action="increment"]');
+    const decrementButton = document.querySelector('[data-action="decrement"]');
+    const modalQuantityInput = document.getElementById('modal-quantity');
+    const modalQuantityStayInput = document.getElementById('modal-quantity-stay');
+    
+    incrementButton.addEventListener('click', function() {
+        const currentValue = parseInt(quantityInput.value);
+        const maxValue = parseInt(quantityInput.getAttribute('max'));
+        if (currentValue < maxValue) {
+            quantityInput.value = currentValue + 1;
+            if (modalQuantityInput) {
                 modalQuantityInput.value = quantityInput.value;
             }
-        });
-        
-        decrementButton.addEventListener('click', function() {
-            const currentValue = parseInt(quantityInput.value);
-            if (currentValue > 1) {
-                quantityInput.value = currentValue - 1;
+            if (modalQuantityStayInput) {
+                modalQuantityStayInput.value = quantityInput.value;
+            }
+        }
+    });
+    
+    decrementButton.addEventListener('click', function() {
+        const currentValue = parseInt(quantityInput.value);
+        if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+            if (modalQuantityInput) {
                 modalQuantityInput.value = quantityInput.value;
             }
+            if (modalQuantityStayInput) {
+                modalQuantityStayInput.value = quantityInput.value;
+            }
+        }
+    });
+
+    // Add a direct event listener to the quantity input to catch manual changes:
+    quantityInput.addEventListener('change', function() {
+        if (modalQuantityInput) {
+            modalQuantityInput.value = this.value;
+        }
+        if (modalQuantityStayInput) {
+            modalQuantityStayInput.value = this.value;
+        }
+    });
+    
+    // Rating input functionality
+    const ratingInputs = document.querySelectorAll('.rating-input input');
+    const starIcons = document.querySelectorAll('.star-icon');
+    
+    // Fix for star rating hover effect - highlight from left to right
+    const ratingLabels = document.querySelectorAll('.rating-input label');
+    
+    ratingLabels.forEach((label, index) => {
+        label.addEventListener('mouseenter', function() {
+            // Highlight current star and all stars to the left
+            for (let i = 0; i <= index; i++) {
+                starIcons[i].classList.add('text-yellow-400');
+                starIcons[i].classList.remove('text-gray-300');
+            }
+            // Remove highlight from stars to the right
+            for (let i = index + 1; i < starIcons.length; i++) {
+                starIcons[i].classList.remove('text-yellow-400');
+                starIcons[i].classList.add('text-gray-300');
+            }
         });
-        
-        // Rating input functionality
-        const ratingInputs = document.querySelectorAll('.rating-input input');
-        const starIcons = document.querySelectorAll('.star-icon');
-        
-        ratingInputs.forEach((input, index) => {
-            input.addEventListener('change', function() {
-                // Reset all stars
+    });
+    
+    // Reset stars when mouse leaves the rating container
+    const ratingContainer = document.querySelector('.rating-input');
+    if (ratingContainer) {
+        ratingContainer.addEventListener('mouseleave', function() {
+            // Find the selected rating
+            const selectedRating = document.querySelector('.rating-input input:checked');
+            if (selectedRating) {
+                const selectedIndex = parseInt(selectedRating.value) - 1;
+                // Reset stars based on selection
                 starIcons.forEach((star, i) => {
-                    if (i <= index) {
+                    if (i <= selectedIndex) {
                         star.classList.add('text-yellow-400');
                         star.classList.remove('text-gray-300');
                     } else {
@@ -631,18 +660,47 @@
                         star.classList.add('text-gray-300');
                     }
                 });
+            } else {
+                // If no rating selected, reset all stars
+                starIcons.forEach(star => {
+                    star.classList.remove('text-yellow-400');
+                    star.classList.add('text-gray-300');
+                });
+            }
+        });
+    }
+    
+    ratingInputs.forEach((input, index) => {
+        input.addEventListener('change', function() {
+            // Reset all stars
+            starIcons.forEach((star, i) => {
+                if (i <= index) {
+                    star.classList.add('text-yellow-400');
+                    star.classList.remove('text-gray-300');
+                } else {
+                    star.classList.remove('text-yellow-400');
+                    star.classList.add('text-gray-300');
+                }
             });
         });
     });
+});
     
     // Cart confirmation functionality
     function showConfirmationBox(productId) {
         document.getElementById('confirmation-box-' + productId).classList.remove('hidden');
-        document.getElementById('modal-quantity').value = document.getElementById('quantity').value;
+        // Set quantity for both buttons
+        const quantity = document.getElementById('quantity').value;
+        document.getElementById('modal-quantity').value = quantity;
+        document.getElementById('modal-quantity-stay').value = quantity;
     }
     
+    // Function to hide the modal (might be needed for other interactions)
     function hideConfirmationBox(productId) {
-        document.getElementById('confirmation-box-' + productId).classList.add('hidden');
+        const modal = document.getElementById('confirmation-box-' + productId);
+        if (modal) {
+            modal.classList.add('hidden');
+        }
     }
 </script>
 
@@ -667,10 +725,15 @@
         transform: scale(1.05);
     }
     
-    /* Star rating hover effect */
+    /* Star rating hover effect - FIXED to highlight from left to right */
+    .rating-input {
+        direction: ltr;
+    }
+    
+    /* Remove the previous hover effect that was causing right-to-left highlighting */
     .rating-input label:hover svg,
     .rating-input label:hover ~ label svg {
-        color: #FBBF24;
+        color: inherit;
     }
 </style>
 @endsection

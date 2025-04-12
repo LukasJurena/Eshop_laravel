@@ -23,7 +23,6 @@
 @endphp
 @section('content')
 <!-- Hero Section Fullscreen Split Left-Right -->
-{{-- resources/views/components/hero-carousel.blade.php --}}
 <div x-data="{ current: 0, slides: {{ json_encode($slides) }} }" x-init="setInterval(() => current = (current + 1) % slides.length, 5000)" class="relative min-h-screen bg-black text-white overflow-hidden">
     <template x-for="(item, index) in slides" :key="index">
         <div x-show="current === index" class="absolute inset-0 transition-opacity duration-1000 ease-in-out flex flex-col md:flex-row items-center justify-between z-10">
@@ -73,7 +72,7 @@
     <!-- Reviews Section (Now under the slider) -->
     @include('components.model-viewer')
     @include('components.reviews')
-    @include('components.product-slider')
+    
 @endsection
 
 @push('scripts')

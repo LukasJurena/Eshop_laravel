@@ -27,7 +27,7 @@
                     <!-- Search Form -->
                     <form method="GET" action="{{ route('products.index') }}" class="flex items-center">
                         <input type="text" name="query" placeholder="Hledat produkt..." class="px-4 py-2 border rounded" value="{{ request('query') }}">
-                        <button type="submit" class="ml-2 bg-blue-500 text-white px-4 py-2 rounded">Hledat</button>
+                        <button type="submit" class="ml-2 bg-yellow-500 text-white px-4 py-2 rounded">Hledat</button>
                     </form>
                 </div>
             </div>
@@ -88,7 +88,7 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <form method="GET" action="{{ route('products.index') }}" class="flex items-center">
             <input type="text" name="query" placeholder="Hledat produkt..." class="px-4 py-2 border rounded" value="{{ request('query') }}">
-            <button type="submit" class="ml-2 bg-blue-500 text-white px-4 py-2 rounded">Hledat</button>
+            <button type="submit" class="ml-2 bg-yellow-500 text-white px-4 py-2 rounded">Hledat</button>
         </form>
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">

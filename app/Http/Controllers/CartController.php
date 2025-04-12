@@ -13,6 +13,9 @@ class CartController extends Controller
         // Load product from database
         $product = Product::findOrFail($productId);
 
+        // Get quantity from request (default to 1 if not set)
+        $quantity = $request->input('quantity', 1);
+
         // Initialize cart if it doesn't exist
         if (!session()->has('cart')) {
             session(['cart' => []]);
@@ -24,13 +27,13 @@ class CartController extends Controller
         // Check if product already exists in the cart
         if (isset($cart[$productId])) {
             // Increment the quantity if product already exists
-            $cart[$productId]['quantity']++;
+            $cart[$productId]['quantity'] += $quantity;
         } else {
             // Otherwise, add the new product to the cart
             $cart[$productId] = [
                 'name' => $product->name,
                 'price' => $product->price,
-                'quantity' => 1,
+                'quantity' => $quantity,
                 'image' => 'https://via.placeholder.com/300', // Add the image URL or dynamic path
             ];
         }
