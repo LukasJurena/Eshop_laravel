@@ -1,45 +1,45 @@
 @php
 $reviews = [
     [
-        'author' => 'Luky Puky',
+        'author' => 'Tomáš Kovařík',
         'date' => 'Leden 18, 2025',
         'rating' => 5,
-        'text' => 'Skvélé produkty a velmi rychlé dodání! Určitě se vrátím na další nákup!',
-        'avatar' => 'user1.jpg' // Optional: you can add actual avatar images
+        'text' => 'Produkty dorazily v pořádku a velmi rychle. Nakupuji zde poprvé, ale určitě ne naposledy.',
+        'avatar' => 'user1.jpg'
     ],
     [
-        'author' => 'Petr Vyskoč',
+        'author' => 'Adam Beneš',
         'date' => 'Září 17, 2025',
         'rating' => 4,
-        'text' => 'Kvalita produktů je výborná. Doporučuji každému, kdo hledá kvalitní zboží za dobrou cenu!',
+        'text' => 'Výborná kvalita za rozumnou cenu. Obchod mě mile překvapil.',
         'avatar' => 'user2.jpg'
     ],
     [
-        'author' => 'Radoš Gremlinský',
+        'author' => 'Richard Malý',
         'date' => 'Květen 16, 2025',
         'rating' => 5,
-        'text' => 'Skvělý obchod! Produkty jsou kvalitní, ceny jsou příznivé a zákaznická podpora je na vysoké úrovni. Určitě se sem vrátím!',
+        'text' => 'Přehledný e-shop, kvalitní zboží a vstřícná komunikace. Doporučuji.',
         'avatar' => 'user3.jpg'
     ],
     [
-        'author' => 'Metr Párna',
+        'author' => 'Ondřej Král',
         'date' => 'Únor 21, 2025',
         'rating' => 5,
-        'text' => 'Velmi spokojen s nákupem, rychlé dodání a přehledná stránka. Doporučuji!',
+        'text' => 'Nakupovalo se mi velmi dobře. Stránky jsou jednoduché a dodání bylo rychlé.',
         'avatar' => 'user4.jpg'
     ],
     [
-        'author' => 'Jana Nováková',
+        'author' => 'Lucie Horáková',
         'date' => 'Březen 5, 2025',
         'rating' => 5,
-        'text' => 'Naprostá spokojenost! Objednávka dorazila rychle a vše bylo perfektně zabaleno.',
+        'text' => 'Všechno přišlo v pořádku, pečlivě zabalené. Velká spokojenost.',
         'avatar' => 'user5.jpg'
     ],
     [
-        'author' => 'Martin Svoboda',
+        'author' => 'Jakub Dvořák',
         'date' => 'Duben 12, 2025',
         'rating' => 4,
-        'text' => 'Skvělý výběr produktů a příjemná komunikace. Jen dodání trvalo o něco déle.',
+        'text' => 'Komunikace v pořádku, výběr super. Jen dodání mohlo být trochu rychlejší.',
         'avatar' => 'user6.jpg'
     ],
 ];
