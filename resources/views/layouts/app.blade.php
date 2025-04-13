@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'SKATESHOP') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -88,8 +88,8 @@
     <div class="layout-wrapper bg-gray-100 dark:bg-gray-900">
         <!-- Page transition overlay with "Barvio" text -->
         <div class="page-transition">
-            <div class="transition-text">Barvio</div>
-            <div class="transition-sub">Ecologic colors without oil</div>
+            <div class="transition-text">SKATESHOP</div>
+            <div class="transition-sub">Super obchod s skate věcmi.</div>
         </div>
 
         @include('layouts.navigation')

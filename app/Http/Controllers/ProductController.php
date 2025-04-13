@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -9,42 +9,66 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        
-        $products = Product::query();
+        $categories = Category::all();
+        $query = Product::query();
 
-        // Apply filters if present
-        if ($request->has('price_from')) {
-            $products->where('price', '>=', $request->input('price_from'));
-        }
-        if ($request->has('price_to')) {
-            $products->where('price', '<=', $request->input('price_to'));
-        }
-        if ($request->has('category')) {
-            $products->whereIn('category', $request->input('category'));
+        // Vyhledávání podle názvu nebo popisu
+        if ($request->filled('query')) {
+            $search = $request->input('query');
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                ->orWhere('description', 'LIKE', "%{$search}%");
+            });
         }
 
-        // Apply sorting if present
+        // Filtr ceny
+        if ($request->has('price_from') && is_numeric($request->price_from)) {
+            $query->where('price', '>=', $request->price_from);
+        }
+
+        if ($request->has('price_to') && is_numeric($request->price_to)) {
+            $query->where('price', '<=', $request->price_to);
+        }
+
+        // Filtr kategorií
+        if ($request->has('category') && !empty($request->category)) {
+            $categoryIds = (array) $request->category;
+            $query->whereIn('category_id', $categoryIds);
+        }
+
+        // Třídění
         if ($request->has('sort_by')) {
-            $sort = $request->input('sort_by');
-            if ($sort == 'price_asc') {
-                $products->orderBy('price', 'asc');
-            } elseif ($sort == 'price_desc') {
-                $products->orderBy('price', 'desc');
-            } elseif ($sort == 'name_asc') {
-                $products->orderBy('name', 'asc');
-            } elseif ($sort == 'name_desc') {
-                $products->orderBy('name', 'desc');
-            } elseif ($sort == 'rating_desc') {
-                $products->orderBy('rating', 'desc');
+            switch ($request->sort_by) {
+                case 'price_asc':
+                    $query->orderBy('price', 'asc');
+                    break;
+                case 'price_desc':
+                    $query->orderBy('price', 'desc');
+                    break;
+                case 'name_asc':
+                    $query->orderBy('name', 'asc');
+                    break;
+                case 'name_desc':
+                    $query->orderBy('name', 'desc');
+                    break;
+                case 'rating_desc':
+                    $query->withCount(['reviews as average_rating' => function($q) {
+                        $q->select(\DB::raw('coalesce(avg(rating),0)'));
+                    }])->orderBy('average_rating', 'desc');
+                    break;
+                default:
+                    $query->orderBy('created_at', 'desc');
+                    break;
             }
+        } else {
+            $query->orderBy('created_at', 'desc');
         }
 
-        // Paginate the results
-        $products = $products->paginate(12); // Change 12 to the number of items per page you want
+        // Stránkování
+        $products = $query->paginate(12)->withQueryString();
 
-        return view('products.index', compact('products'));
+        return view('products.index', compact('products', 'categories'));
     }
-
 
     public function create()
     {
@@ -60,41 +84,29 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
 
-        // Get related products (you can adjust the logic to suit your needs)
+        // Get related products (same category, excluding current product)
         $relatedProducts = Product::where('id', '!=', $product->id)
+            ->where('category_id', $product->category_id)
             ->inRandomOrder()
-            ->take(10)
+            ->take(4)
             ->get();
+
+        // If not enough related products in the same category, add some random ones
+        if ($relatedProducts->count() < 4) {
+            $additionalProducts = Product::where('id', '!=', $product->id)
+                ->where('category_id', '!=', $product->category_id)
+                ->inRandomOrder()
+                ->take(4 - $relatedProducts->count())
+                ->get();
+                
+            $relatedProducts = $relatedProducts->concat($additionalProducts);
+        }
 
         // Předá produkt do view
         return view('products.show', compact('product', 'relatedProducts'));
     }
 
-    public function search(Request $request)
-    {
-        // Debugging - vypíše dotaz z formuláře
-        dd($request->input('query')); 
-
-        $query = $request->input('query');
-        
-        // Pokud není dotaz, přesměrovat zpět
-        if (!$query) {
-            return redirect()->route('products.index');
-        }
-
-        // Vyhledávání podle názvu a popisu
-        $products = Product::where('name', 'LIKE', "%{$query}%")
-                        ->orWhere('description', 'LIKE', "%{$query}%")
-                        ->get();
-
-        // Pokud nejsou žádné produkty
-        if ($products->isEmpty()) {
-            return back()->with('message', 'Žádné produkty nenalezeny.');
-        }
-
-        // Předat produkty do pohledu
-        return view('products.index', compact('products'));
-    }
+    
 
     public function edit(Product $product)
     {

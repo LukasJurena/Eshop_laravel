@@ -5,7 +5,25 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('home') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+                            <!-- Skateboard Shape -->
+                            <g transform="translate(0, 5)">
+                                <!-- Deck -->
+                                <path d="M30,25 C30,15 170,15 170,25 C170,35 30,35 30,25 Z" fill="#fbbf24" stroke="#000" stroke-width="2"/>
+                                
+                                <!-- Wheels -->
+                                <circle cx="50" cy="40" r="8" fill="#000"/>
+                                <circle cx="50" cy="40" r="3" fill="#333"/>
+                                <circle cx="150" cy="40" r="8" fill="#000"/>
+                                <circle cx="150" cy="40" r="3" fill="#333"/>
+                                
+                                <!-- Text -->
+                                <text x="100" y="28" font-family="BebasNeue, sans-serif" font-size="20" text-anchor="middle" fill="#000" font-weight="bold">
+                                    SKATE SHOP
+                                </text>
+                            </g>
+                        </svg>
+
                     </a>
                 </div>
 
@@ -25,10 +43,16 @@
                     </x-nav-link>
 
                     <!-- Search Form -->
-                    <form method="GET" action="{{ route('products.index') }}" class="flex items-center">
-                        <input type="text" name="query" placeholder="Hledat produkt..." class="px-4 py-2 border rounded" value="{{ request('query') }}">
-                        <button type="submit" class="ml-2 bg-yellow-500 text-white px-4 py-2 rounded">Hledat</button>
-                    </form>
+                <form action="{{ route('products.index') }}" method="GET" class="w-full md:w-1/3 mt-2">
+                    <div class="relative">
+                        <input type="text" name="query" placeholder="Hledat produkty..." 
+                               class="w-full p-3 pl-10 pr-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                               value="{{ request('query') }}" style="font-family: NunitoLight;">
+                        <button type="submit" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                            <x-heroicon-o-magnifying-glass class="h-5 w-5" />
+                        </button>
+                    </div>
+                </form>
                 </div>
             </div>
 

@@ -4,20 +4,23 @@
         [
             'title' => 'Nová Kolekce 2025',
             'description' => 'Styl. Rychlost. Svoboda. Projeď se s námi ve stylu nové generace.',
-            'image' => asset('images/skate-hero.png'),
+            'image' => asset('images/skate-hero.jpg'),
             'alt' => 'Skater',
+            'link' => '/products',
         ],
         [
-            'title' => 'Limitovaná Edice',
-            'description' => 'Exkluzivní designy, které nikde jinde nenajdete. Buď jedinečný.',
-            'image' => asset('images/skate2.jpg'),
-            'alt' => 'Limited Edition Skateboard',
+            'title' => 'VANS',
+            'description' => 'Kultovní značka pro ty, kdo chtějí víc než jen boty. VANS – výraz tvého stylu na prkně i ve městě.',
+            'image' => asset('images/skate-vans.avif'),
+            'alt' => 'VANS',
+            'link' => '/products?query=vans',
         ],
         [
             'title' => 'Pro Začátečníky i Profíky',
             'description' => 'Vybavení pro každou úroveň zkušeností. Začni svou cestu s námi.',
-            'image' => asset('images/skate3.jpg'),
+            'image' => asset('images/skate-new.jpg'),
             'alt' => 'Skate Park',
+            'link' => '/products?price_from=0&price_to=10000&category[]=3&sort_by=',
         ],
     ];
 @endphp
@@ -31,7 +34,7 @@
                 <div>
                     <h1 class="text-5xl md:text-6xl font-bold mb-6 font-['BebasNeue', sans-serif]" x-text="item.title"></h1>
                     <p class="text-lg md:text-xl mb-8 font-light" x-text="item.description"></p>
-                    <a href="/products" class="inline-block bg-yellow-400 text-black font-semibold py-3 px-6 rounded-lg hover:bg-yellow-300 transition">
+                    <a :href="item.link" class="inline-block bg-yellow-400 text-black font-semibold py-3 px-6 rounded-lg hover:bg-yellow-300 transition">
                         Prohlédnout kolekci
                     </a>
                 </div>
@@ -70,7 +73,7 @@
 <!-- Why Choose Us Section -->
 @include('components.why-choose-us')
     <!-- Reviews Section (Now under the slider) -->
-    @include('components.model-viewer')
+    
     @include('components.reviews')
     
 @endsection

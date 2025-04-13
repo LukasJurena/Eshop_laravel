@@ -12,17 +12,23 @@ use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TextArea;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 
 class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
-
+    protected static ?string $navigationGroup = 'Produkty';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+                Select::make('category_id')
+                    ->label('Kategorie')
+                    ->relationship('category', 'name')
+                    ->required(),
+
                 TextInput::make('name')
                     ->label('Product Name')
                     ->required()
@@ -69,17 +75,11 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->label('Product Name'),
-                Tables\Columns\TextColumn::make('price')
-                    ->label('Price')
-                    ->money('usd'),
-                Tables\Columns\TextColumn::make('sku')
-                    ->label('SKU'),
-                Tables\Columns\BooleanColumn::make('in_stock')
-                    ->label('In Stock')
-                    ->trueColor('success')
-                    ->falseColor('danger'),
+                Tables\Columns\TextColumn::make('name')->label('Product Name'),
+                Tables\Columns\TextColumn::make('price')->label('Price')->money('usd'),
+                Tables\Columns\TextColumn::make('sku')->label('SKU'),
+                Tables\Columns\BooleanColumn::make('in_stock')->label('In Stock')->trueColor('success')->falseColor('danger'),
+                Tables\Columns\TextColumn::make('category.name')->label('Kategorie'), // 👈 zobrazíme název kategorie
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('in_stock')

@@ -122,7 +122,7 @@
             </div>
             
             <!-- Still Have Questions -->
-            <div class="mt-12 bg-black text-white rounded-2xl p-8 text-center">
+            <div class="mt-12 mb-12 bg-black text-white rounded-2xl p-8 text-center">
                 <h3 class="text-2xl font-bold mb-4" style="font-family: BebasNeue;">NENAŠLI JSTE ODPOVĚĎ?</h3>
                 <p class="mb-6" style="font-family: NunitoLight;">Kontaktujte nás a my vám rádi pomůžeme s jakýmkoli dotazem.</p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">

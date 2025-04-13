@@ -9,7 +9,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'description', 'price', 'sku', 'in_stock', 'images'
+        'name', 'description', 'price', 'sku', 'in_stock', 'images', 'category_id'
     ];
     
     protected $casts = [
@@ -28,5 +28,9 @@ class Product extends Model
     public function averageRating()
     {
         return $this->reviews()->avg('rating') ?? 0;
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

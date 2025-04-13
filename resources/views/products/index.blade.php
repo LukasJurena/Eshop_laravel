@@ -23,10 +23,7 @@
                     <div class="relative">
                         <button type="button" @click="filterOpen = !filterOpen"
                             class="flex items-center gap-2 px-5 py-3 text-black bg-yellow-400 rounded-lg hover:bg-yellow-500 transition-colors shadow-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L15 13.414V19a1 1 0 01-.447.832l-4 2.5A1 1 0 019 21.5V13.414L3.293 6.707A1 1 0 013 6V4z" />
-                            </svg>
+                            <x-heroicon-o-funnel class="h-5 w-5" />
                             <span style="font-family: Nunito;" class="font-semibold">Filtrovat produkty</span>
                         </button>
 
@@ -43,9 +40,7 @@
                                 <div class="flex items-center justify-between mb-6">
                                     <h3 class="text-lg font-bold" style="font-family: Nunito;">Filtr produktů</h3>
                                     <button type="button" @click="filterOpen = false" class="text-gray-500 hover:text-black">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
+                                        <x-heroicon-o-x-mark class="h-5 w-5" />
                                     </button>
                                 </div>
 
@@ -94,26 +89,18 @@
                                     </div>
                                 </div>
 
-                                <!-- Categories (example) -->
+                                <!-- Dynamic Categories -->
                                 <div class="mb-6">
                                     <h4 class="font-semibold mb-3" style="font-family: Nunito;">Kategorie</h4>
                                     <div class="space-y-2">
-                                        <label class="flex items-center">
-                                            <input type="checkbox" name="category[]" value="skateboards" class="rounded text-yellow-500 focus:ring-yellow-500">
-                                            <span class="ml-2" style="font-family: NunitoLight;">Skateboardy</span>
-                                        </label>
-                                        <label class="flex items-center">
-                                            <input type="checkbox" name="category[]" value="longboards" class="rounded text-yellow-500 focus:ring-yellow-500">
-                                            <span class="ml-2" style="font-family: NunitoLight;">Longboardy</span>
-                                        </label>
-                                        <label class="flex items-center">
-                                            <input type="checkbox" name="category[]" value="wheels" class="rounded text-yellow-500 focus:ring-yellow-500">
-                                            <span class="ml-2" style="font-family: NunitoLight;">Kolečka</span>
-                                        </label>
-                                        <label class="flex items-center">
-                                            <input type="checkbox" name="category[]" value="accessories" class="rounded text-yellow-500 focus:ring-yellow-500">
-                                            <span class="ml-2" style="font-family: NunitoLight;">Doplňky</span>
-                                        </label>
+                                        @foreach($categories as $category)
+                                            <label class="flex items-center">
+                                                <input type="checkbox" name="category[]" value="{{ $category->id }}" 
+                                                    {{ in_array($category->id, (array)request('category', [])) ? 'checked' : '' }}
+                                                    class="rounded text-yellow-500 focus:ring-yellow-500">
+                                                <span class="ml-2" style="font-family: NunitoLight;">{{ $category->name }}</span>
+                                            </label>
+                                        @endforeach
                                     </div>
                                 </div>
 
@@ -142,7 +129,17 @@
                 </div>
             </form>
         </div>
-
+        <!-- Search Results Heading (if searching) -->
+        @if(request('query'))
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold" style="font-family: Nunito;">
+                    Výsledky vyhledávání pro: "{{ request('query') }}"
+                </h2>
+                <p class="text-gray-600" style="font-family: NunitoLight;">
+                    Nalezeno {{ $products->total() }} {{ $products->total() == 1 ? 'produkt' : ($products->total() >= 2 && $products->total() <= 4 ? 'produkty' : 'produktů') }}
+                </p>
+            </div>
+        @endif
         <!-- Active Filters (optional) -->
         @if(request('price_from') > 0 || request('price_to') < 10000 || request('category'))
         <div class="mb-6 flex flex-wrap gap-2">
@@ -152,9 +149,7 @@
             <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-yellow-100 text-yellow-800">
                 Cena od: {{ request('price_from') }} Kč
                 <a href="{{ request()->fullUrlWithQuery(['price_from' => 0]) }}" class="ml-1 text-yellow-800 hover:text-yellow-900">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+                    <x-heroicon-o-x-mark class="h-4 w-4" />
                 </a>
             </span>
             @endif
@@ -163,11 +158,25 @@
             <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-yellow-100 text-yellow-800">
                 Cena do: {{ request('price_to') }} Kč
                 <a href="{{ request()->fullUrlWithQuery(['price_to' => 10000]) }}" class="ml-1 text-yellow-800 hover:text-yellow-900">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+                    <x-heroicon-o-x-mark class="h-4 w-4" />
                 </a>
             </span>
+            @endif
+            
+            @if(request('category'))
+                @foreach((array)request('category') as $categoryId)
+                    @php
+                        $categoryName = $categories->where('id', $categoryId)->first()->name ?? '';
+                    @endphp
+                    @if($categoryName)
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-yellow-100 text-yellow-800">
+                        Kategorie: {{ $categoryName }}
+                        <a href="{{ request()->fullUrlWithQuery(['category' => array_diff((array)request('category'), [$categoryId])]) }}" class="ml-1 text-yellow-800 hover:text-yellow-900">
+                            <x-heroicon-o-x-mark class="h-4 w-4" />
+                        </a>
+                    </span>
+                    @endif
+                @endforeach
             @endif
             
             <a href="{{ route('products.index') }}" class="text-sm text-black hover:text-yellow-600 underline ml-2" style="font-family: NunitoLight;">
@@ -181,7 +190,7 @@
             @foreach($products as $product)
             <div class="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1">
                 <!-- Badge (optional) -->
-                @if($product->is_new)
+                @if(isset($product->is_new) && $product->is_new)
                 <div class="absolute top-3 left-3 z-10">
                     <span class="inline-block bg-yellow-400 text-black px-3 py-1 rounded-full text-xs font-bold" style="font-family: Nunito;">NOVINKA</span>
                 </div>
@@ -190,7 +199,7 @@
                 <!-- Product Image with Hover Effect -->
                 <div class="relative overflow-hidden h-64">
                     <a href="{{ route('products.show', $product->id) }}" class="block h-full">
-                        <img src="{{ asset('storage/' . $product->images[0]) }}" alt="{{ $product->name }}" 
+                        <img src="{{ asset('storage/' . ($product->images[0] ?? 'products/default.jpg')) }}" alt="{{ $product->name }}" 
                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                     </a>
                     
@@ -207,17 +216,23 @@
                 <!-- Product Info -->
                 <div class="p-5 flex flex-col flex-grow">
                     <div class="mb-2 flex items-center">
-                        <div class="flex text-yellow-400">
+                        <div class="flex">
                             @for($i = 1; $i <= 5; $i++)
                                 @if($i <= round($product->averageRating()))
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                    </svg>
+                                    <x-heroicon-s-star class="h-4 w-4 star-yellow" />
                                 @else
-                                    
+                                    <x-heroicon-s-star class="h-4 w-4 star-gray" />
                                 @endif
                             @endfor
                         </div>
+                        <style>
+                            .star-yellow {
+                                color: #FBBF24; /* Žlutá barva (Tailwind text-yellow-400) */
+                            }
+                            .star-gray {
+                                color: #D1D5DB; /* Šedá barva (Tailwind text-gray-300) */
+                            }
+                        </style>
                         <span class="text-xs text-gray-500 ml-1" style="font-family: NunitoLight;">
                             ({{ $product->reviews->count() }})
                         </span>
@@ -233,7 +248,7 @@
                         <div class="flex items-center justify-between mb-3">
                             <span class="text-xl font-bold text-black" style="font-family: Nunito;">{{ $product->price }} Kč</span>
                             
-                            @if($product->old_price)
+                            @if(isset($product->old_price) && $product->old_price > $product->price)
                             <span class="text-sm line-through text-gray-500" style="font-family: NunitoLight;">
                                 {{ $product->old_price }} Kč
                             </span>
@@ -251,9 +266,7 @@
                                     class="bg-yellow-400 text-black px-3 py-2 rounded-lg hover:bg-yellow-500 transition-colors"
                                     onclick="addToCart({{ $product->id }})"
                                     title="Přidat do košíku">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                                </svg>
+                                <x-heroicon-o-shopping-cart class="h-5 w-5" />
                             </button>
                         </div>
                     </div>
@@ -265,9 +278,7 @@
         <!-- Empty State -->
         @if(count($products) === 0)
         <div class="text-center py-16">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
+            <x-heroicon-o-face-frown class="h-16 w-16 text-gray-400 mx-auto mb-4" />
             <h3 class="text-xl font-bold mb-2" style="font-family: Nunito;">Žádné produkty nenalezeny</h3>
             <p class="text-gray-600 mb-6" style="font-family: NunitoLight;">Zkuste změnit filtry nebo vyhledat jiné produkty.</p>
             <a href="{{ route('products.index') }}" class="inline-block bg-yellow-400 text-black px-6 py-3 rounded-lg font-semibold hover:bg-yellow-500 transition-colors" style="font-family: Nunito;">
@@ -288,9 +299,7 @@
     <div class="bg-white rounded-xl p-6 max-w-md w-full mx-4 shadow-2xl transform transition-all">
         <div class="text-center">
             <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
+                <x-heroicon-o-check class="h-8 w-8 text-green-500" />
             </div>
             <h3 class="text-xl font-bold mb-2" style="font-family: Nunito;">Produkt přidán do košíku</h3>
             <p class="text-gray-600 mb-6" style="font-family: NunitoLight;">Produkt byl úspěšně přidán do vašeho košíku.</p>
