@@ -30,16 +30,16 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex " style="font-family: Nunito;">
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                        {{ __('Home') }}
+                        {{ __('Domů') }}
                     </x-nav-link>
                     <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
-                        {{ __('Products') }}
+                        {{ __('Produkty') }}
                     </x-nav-link>
                     <x-nav-link :href="route('contact.index')" :active="request()->routeIs('contact.index')">
-                        {{ __('Contact') }}
+                        {{ __('Kontakt') }}
                     </x-nav-link>
                     <x-nav-link :href="route('questions.index')" :active="request()->routeIs('questions.index')">
-                        {{ __('Questions') }}
+                        {{ __('Otázky') }}
                     </x-nav-link>
 
                     <!-- Search Form -->
@@ -79,8 +79,8 @@
                             <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">{{ __('Log Out') }}</x-dropdown-link>
                         </form>
                     @else
-                        <x-dropdown-link :href="route('login')">{{ __('Log In') }}</x-dropdown-link>
-                        <x-dropdown-link :href="route('register')">{{ __('Register') }}</x-dropdown-link>
+                        <x-dropdown-link :href="route('login')">{{ __('Přihlásit se') }}</x-dropdown-link>
+                        <x-dropdown-link :href="route('register')">{{ __('Registrovat se') }}</x-dropdown-link>
                     @endauth
                 </div>
             </div>
@@ -116,16 +116,16 @@
         </form>
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                {{ __('Home') }}
+                {{ __('Domů') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
-                {{ __('Products') }}
+                {{ __('Produkty') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('contact.index')" :active="request()->routeIs('contact.index')">
-                {{ __('Contact') }}
+                {{ __('Kontakt') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('questions.index')" :active="request()->routeIs('questions.index')">
-                {{ __('Questions') }}
+                {{ __('Otázky') }}
             </x-responsive-nav-link>
         </div>
 
@@ -138,7 +138,7 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
+                    {{ __('Profil') }}
                 </x-responsive-nav-link>
 
                 <form method="POST" action="{{ route('logout') }}">
@@ -146,7 +146,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('Odhlásit se') }}
                     </x-responsive-nav-link>
                 </form>
             </div>

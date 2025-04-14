@@ -23,7 +23,7 @@
         }
 
         .floating-button:hover {
-            background-color: #2563EB; /* Světlejší modrá při hoveru */
+            background-color:rgb(250 204 21 / var(--tw-bg-opacity, 1)); /* Světlejší modrá při hoveru */
         }
 
         /* Tooltip stylování */
